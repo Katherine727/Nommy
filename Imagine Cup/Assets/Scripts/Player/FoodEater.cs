@@ -14,15 +14,16 @@ public class FoodEater : MonoBehaviour {
 	void Update () {
 	
 	}
-	
-	//Po kolizji z jakims triggerem(triggerami beda np smakolyki)
-	void OnTriggerEnter2D(Collider2D c)
-	{
-		if (c.gameObject.layer == LayerMask.NameToLayer("Food")) //jesli smakolyk
-		{
+
+	/// <summary>
+	/// Zdarzenie po kolizji z jakims triggerem(triggerami beda np smakolyki)
+	/// </summary>
+	/// <param name="c">c to collider tego triggera(np. boxcollider2d itp)</param>
+	void OnTriggerEnter2D(Collider2D c)	{
+		if (c.gameObject.layer == LayerMask.NameToLayer("Food")) { //jesli smakolyk
 			Destroy(c.gameObject); //to niszcz go
 
-			//KOD DAJACY POWER_UP TO_DO
+			//KOD DAJACY POWER UP I NASYCENIE TODO
 		}
 	}
 }

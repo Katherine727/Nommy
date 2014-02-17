@@ -58,7 +58,7 @@ public class MenuScript : MonoBehaviour
         public ElementGUI(string _name, Rect _pos)
         {
             name = _name;
-            position = new Rect(_pos.left * Screen.width, _pos.top * Screen.height, _pos.width * Screen.width, _pos.height * Screen.height);
+            position = new Rect(_pos.xMin * Screen.width, _pos.yMin * Screen.height, _pos.width * Screen.width, _pos.height * Screen.height);
         }
 
         public ElementGUI(string _Name,Rect _Pos,Texture2D _buttontex)
