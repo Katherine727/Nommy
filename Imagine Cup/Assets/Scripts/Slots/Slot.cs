@@ -1,76 +1,128 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
 
-public class Slot {
+public class Slot : MonoBehaviour{
 
-    [Flags]
-    public enum SlotState {
-        Unknown = 0,
-        Active = 1,
-        Full = 2,
-        Activated = 4,
-        Using = 8
+
+    private bool _isActive;
+    private bool _isFull;
+    private bool _isActivated;
+    private float _actualValue;
+    private float _actualValueProc;
+    private PowerEnum _power;
+    private float _minValue = 0;
+    private SpriteRenderer spriteRenderer;
+
+
+    public float timeToEndInSec;
+    public float usingMuliplayer;
+
+    [HideInInspector]
+    public bool IsActive {
+        get { return _isActive; }
+        set { _isActive = value; }
+    }
+    [HideInInspector]
+    public bool IsFull {
+        get { return _isFull; }
+        set {  
+            _isFull = value;
+            if (ActualValue != timeToEndInSec && _isFull == true) {
+                ActualValue = timeToEndInSec; 
+            }
+        }
+    }
+    [HideInInspector]
+    public bool IsActivated {
+        get { return _isActivated; }
+        set { _isActivated = value; }
     }
 
-    private float _minValue = 0;
-    private double _actualValue;
-    public SlotState CurrentState { get; set; }
-    public float MaxValue { get; set; }
-    public double ActualValue {
+    [HideInInspector]
+    public float ActualValue {
         get {
             return _actualValue;
         }
-        set {
-            if (MaxValue > 0) {
-                _actualValue = Mathf.Clamp((float)value, _minValue, MaxValue);
-            } else {
-                throw new Exception("MaxValue mustn't be equal to 0!");
-            }
+        private set {
 
-            if (_actualValue == MaxValue) {
-                CurrentState |= SlotState.Full;
+            if (timeToEndInSec > 0) {
+                _actualValue = Mathf.Clamp(value, _minValue, timeToEndInSec);
             } else {
-                CurrentState = SlotState.Active;
+                throw new Exception("Time mustn't be equal to 0!");
             }
+            IsFull = (_actualValue == timeToEndInSec) ? true : false;
+            IsActive = (_actualValue > 0) ? true : false;
         }
     }
+
+    [HideInInspector]
     public float ActualValueProc {
         get {
-            if (MaxValue > 0) {
-                return Mathf.Round(((float)ActualValue / MaxValue) * 10000) / 100f;
+            if (timeToEndInSec > 0) {
+                _actualValueProc = Mathf.Round(((float)ActualValue / timeToEndInSec) * 10000) / 100f;
+                return _actualValueProc;
             } else {
-                throw new Exception("MaxValue mustn't be equal to 0!");
+                throw new Exception("Time mustn't be equal to 0!");
             }
         }
         set {
-            ActualValue = MaxValue * value / 100f;
+            ActualValue = timeToEndInSec * value / 100f;
         }
     }
-    public float UsingMuliplayer { get; set; }
 
-    public GameObject SlotObj { get; set; }
-    public PowerEnum Power { get; set; }
-
-    public float TimeToEndInSec;
-
-    public Slot(GameObject gameObj, float maxValue = 100, float timeToEndInSec = 120, float startValueInProc = 100, float usingMulitplayer = 5) {
-        SlotObj = gameObj;
-        MaxValue = maxValue;
-        ActualValueProc = startValueInProc;
-        TimeToEndInSec = timeToEndInSec;
-        UsingMuliplayer = usingMulitplayer;
+    [HideInInspector]
+    public PowerEnum Power {
+        get { return _power; }
+        set{
+            if (transform.parent != null) {
+                ChangeSpriteByPower(value,transform.parent);
+            } else {
+                ChangeSpriteByPower(value, transform);
+            }
+            _power = value;
+        }
     }
-    //public Slot(Vector3 position, float maxValue = 100, float timeToEndInSec = 120, float startValueInProc = 100)
-    //    : this(maxValue, timeToEndInSec, startValueInProc) {
-    //        Position = position;
-    //}
 
-    public void Update() {
-        if ((CurrentState & SlotState.Active) == SlotState.Active) {
-            double deltaValue = MaxValue * (((CurrentState & SlotState.Using) == SlotState.Using) ? Time.deltaTime * UsingMuliplayer : Time.deltaTime) / TimeToEndInSec;
-            ActualValue -= deltaValue;
-            CurrentState ^= SlotState.Using;
+    [HideInInspector]
+    public float Width {
+        get {
+            if (spriteRenderer != null) {
+                return spriteRenderer.bounds.size.x;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    [HideInInspector]
+    public float Height {
+        get {
+            if (spriteRenderer != null) {
+                return spriteRenderer.bounds.size.y;
+            } else {
+                return 0;
+            }
+        }
+    }
+    void Start() {
+        spriteRenderer = transform.GetComponent<SpriteRenderer>();
+    }
+    void Update() {
+        if (IsActive) {
+            double deltaValue = Time.deltaTime * usingMuliplayer;
+            ActualValue -= (float)deltaValue;
+            //Debug.Log(ActualValue.ToString()+" IsActive: " + IsActive.ToString()); --test
+        }
+            
+        //metoda rysowania...
+    }
+
+    private void ChangeSpriteByPower(PowerEnum value, Transform obj) {
+        PowerSlotSpriteProvider pssProvider = obj.GetComponent<PowerSlotSpriteProvider>();
+        if (pssProvider != null && spriteRenderer != null) {
+            spriteRenderer.sprite = pssProvider.powerSpritePairs.Where(pair => pair.power == value).First().sprite;
         }
     }
 

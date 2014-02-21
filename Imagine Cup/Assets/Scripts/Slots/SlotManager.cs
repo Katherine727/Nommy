@@ -6,30 +6,40 @@ using System.Linq;
 
 using Assets.Utils;
 
-//[Serializable]
-//public class SlotSpriteDictionary : Dictionary<PowerEnum,SpriteRenderer>{}
-public class SlotManager : MonoBehaviour {
 
-    public float maxValueInSlot;
-    public float timeToEndInSec;
-    public float startValueInProc;
-    public float usingMultiplayer;
-    public int numberOfSlots;
+public class SlotManager : MonoBehaviour {
+    public enum SlotsPosition {
+        Unknown,
+        Horizontal,
+        Vertical
+    }
 
     private int _indexOfActiveSlot;
-    public int IndexOfActiveSlot {
+    private List<Slot> _slots;
+    private SlotsPosition previousSlotsPosition;
+    private bool _addedNewSlot;
+
+    public SlotsPosition slotsPosition;
+    public float timeToEndInSec;
+    //public float startValueInProc;
+    public float usingMultiplayer;
+    //public float maxNumberOfSlots;
+    public GameObject slotPrefab;
+    public float offSet;
+
+
+    public int IndexOfActivatedSlot {
         get {
             return _indexOfActiveSlot;
         }
         set {
-            if (value < Slots.Count && value >= 0) {
+            if (Slots.Count > 0 && value < Slots.Count && value >= 0) {
+                Slots[_indexOfActiveSlot].IsActivated = false;
                 _indexOfActiveSlot = value;
+                Slots[_indexOfActiveSlot].IsActivated = true;
             }
         }
     }
-
-    private List<Slot> _slots;
-    //public SlotSpriteDictionary ssDictionary;
 
     public List<Slot> Slots {
         get {
@@ -44,81 +54,95 @@ public class SlotManager : MonoBehaviour {
         Slots = new List<Slot>();
     }
     void Start() {
+        slotsPosition = SlotsPosition.Horizontal;
+        previousSlotsPosition = SlotsPosition.Unknown;
+        AddSlot(PowerEnum.Balls);
     }
 
     // Update is called once per frame
     void Update() {
 
-        numberOfSlots = Mathf.Clamp(numberOfSlots, 0, 5);
-        if (Slots.Count < numberOfSlots) {
-            AddEmptySlot();
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            SetFlagInCurrentDelInPrev(0, Slot.SlotState.Activated);
+            IndexOfActivatedSlot = 0;
         } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            SetFlagInCurrentDelInPrev(1, Slot.SlotState.Activated);
+            IndexOfActivatedSlot = 1;
         } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            SetFlagInCurrentDelInPrev(2, Slot.SlotState.Activated);
+            IndexOfActivatedSlot = 2;
         } else if (Input.GetKeyDown(KeyCode.Alpha4)) {
-            SetFlagInCurrentDelInPrev(3, Slot.SlotState.Activated);
-        } else if (Input.GetKeyDown(KeyCode.Alpha5)) {
-            SetFlagInCurrentDelInPrev(4, Slot.SlotState.Activated);
+            IndexOfActivatedSlot = 3;
         }
 
-        if (Input.GetMouseButtonDown(1)) {
-            var slot = FindInState(Slot.SlotState.Activated & Slot.SlotState.Active);
-            if (slot != null) {
-                SetFlagInCurrentDelInPrev(Slots.IndexOf(slot), Slot.SlotState.Using);
-            }
-        }
-        foreach (var slot in Slots) {
-            slot.Update();
+        if (slotsPosition != previousSlotsPosition || _addedNewSlot) {
+            SetPosition();
+            previousSlotsPosition = slotsPosition;
+            _addedNewSlot = false;
         }
     }
 
-    private void AddEmptySlot() {
-        var gObj = new GameObject();
-        var slot = new Slot(gObj, maxValueInSlot, timeToEndInSec, startValueInProc, usingMultiplayer);
-        gObj.AddComponent("SpriteRenderer");
-        gObj.transform.parent = this.transform;
-        gObj.name = "Slot";
-        slot.CurrentState = Slot.SlotState.Unknown;
-
+    private Slot AddEmptySlot() {
+        var slot = ((GameObject)Instantiate(slotPrefab)).GetComponent<Slot>();
+        slot.transform.parent = this.transform;
         Slots.Add(slot);
-
-    }
-
-    private void SetFlagInCurrentDelInPrev(int index, Slot.SlotState state) {
-        if (Slots.Count > index) {
-            var slot = FindInState(state);
-            if (slot != null) {
-                slot.CurrentState ^= state;
-            }
-            Slots[index].CurrentState |= state;
-        }
+        _addedNewSlot = true;
+        return slot;
     }
 
     public void AddSlot(PowerEnum powerType) {
         var slot = FindSlotByPower(powerType);
         if (slot == null) {
-            AddEmptySlot();
-            slot = Slots.Last();
+            slot = AddEmptySlot();
             slot.Power = powerType;
         }
-        slot.CurrentState = Slot.SlotState.Activated | Slot.SlotState.Active;
-        slot.SlotObj.name += slot.Power.ToString();
-        if (startValueInProc == 100) {
-            slot.CurrentState |= Slot.SlotState.Full;
-        }
+        slot.IsActive = true;
+        slot.IsFull = true;
+        slot.timeToEndInSec = timeToEndInSec;
+        slot.usingMuliplayer = usingMultiplayer;
+
+
     }
 
-    private Slot FindInState(Slot.SlotState state) {
-        var slot = Slots.Where(s => (s.CurrentState & state) == state).FirstOrDefault();
-        return slot;
+    public void DeleteSlot() {
+        if (Slots.Count > 0) {
+            var inActiveSlots = Slots.Where(s => s.IsActive == false) as List<Slot>;
+            Slot slot;
+            if (inActiveSlots.Count > 0) {
+                slot = inActiveSlots.First();
+                DestroySlot(slot);
+            } else {
+                var inActivatedSlots = Slots.Where(s => s.IsActivated == false) as List<Slot>;
+                if (inActivatedSlots.Count > 0) {
+                    slot = inActivatedSlots.First();
+                    DestroySlot(slot);
+                } else {
+                    slot = Slots.Last();
+                    DestroySlot(slot);
+                }
+            }
+        }
+    }
+    private void DestroySlot(Slot slot) {
+        if (Slots.Remove(slot)) {
+            Destroy(slot.gameObject);
+        }
     }
     private Slot FindSlotByPower(PowerEnum powerType) {
         var slot = Slots.Where(s => s.Power == powerType).FirstOrDefault();
         return slot;
+    }
+    private void SetPosition() {
+        if (Slots.Count > 0) {
+            Slots[0].transform.localPosition = Vector3.zero;
+            if (slotsPosition == SlotsPosition.Horizontal) {
+                for (int i = 1; i < Slots.Count; i++) {
+                    Vector3 prevPos = Slots[i - 1].transform.localPosition;
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x + offSet + Slots[i - 1].Width / 2, prevPos.y, 0);
+                }
+            } else {
+                for (int i = 1; i < Slots.Count; i++) {
+                    Vector3 prevPos = Slots[i - 1].transform.localPosition;
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x, prevPos.y + offSet + Slots[i - 1].Height / 2, 0);
+                }
+            }
+        }
     }
 }

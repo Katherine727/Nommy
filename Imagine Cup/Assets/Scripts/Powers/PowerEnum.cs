@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PowerEnum {
-
-	public enum PowerType{ //tylko przykład
+public enum PowerEnum{ //tylko przykład
         Balls,
         Fireballs
-    }
 }
