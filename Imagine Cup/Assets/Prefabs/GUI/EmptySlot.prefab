@@ -39,8 +39,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfea366f9f9725241913bb156da92445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToEndInSec: 120
-  usingMuliplayer: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -53,16 +51,16 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 67e9ec267d1a2074981ba58e75418e54, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_SortingLayerID: 0
-  m_Sprite: {fileID: 0}
+  m_SortingLayerID: 3470022553
+  m_Sprite: {fileID: 21300000, guid: edbbf7400599f9249816fd856d7a9726, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

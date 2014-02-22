@@ -36,10 +36,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65b9e77101ca7943bf4507dbcf23f0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 88cb91f3322e785489e7f6ad1fa0993b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerSpritePairs: []
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,8 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotsPosition: 1
-  timeToEndInSec: 120
-  usingMultiplayer: 1
   slotPrefab: {fileID: 100000, guid: 134a2f0fea7044440b37d5e9bbca8886, type: 2}
   offSet: 0
 --- !u!1001 &100100000

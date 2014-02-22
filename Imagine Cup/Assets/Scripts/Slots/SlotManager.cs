@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using Assets.Utils;
 
 
 public class SlotManager : MonoBehaviour {
@@ -20,14 +17,12 @@ public class SlotManager : MonoBehaviour {
     private bool _addedNewSlot;
 
     public SlotsPosition slotsPosition;
-    public float timeToEndInSec;
-    //public float startValueInProc;
-    public float usingMultiplayer;
-    //public float maxNumberOfSlots;
     public GameObject slotPrefab;
     public float offSet;
+    public Vector3 position;
 
 
+    
     public int IndexOfActivatedSlot {
         get {
             return _indexOfActiveSlot;
@@ -56,11 +51,17 @@ public class SlotManager : MonoBehaviour {
     void Start() {
         slotsPosition = SlotsPosition.Horizontal;
         previousSlotsPosition = SlotsPosition.Unknown;
+        
+
+
+        //-########-TEST
         AddSlot(PowerEnum.Balls);
+        AddSlot(PowerEnum.Fireballs);
     }
 
     // Update is called once per frame
     void Update() {
+        transform.position = Camera.main.ViewportToWorldPoint(position);
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             IndexOfActivatedSlot = 0;
@@ -79,25 +80,17 @@ public class SlotManager : MonoBehaviour {
         }
     }
 
-    private Slot AddEmptySlot() {
-        var slot = ((GameObject)Instantiate(slotPrefab)).GetComponent<Slot>();
-        slot.transform.parent = this.transform;
-        Slots.Add(slot);
-        _addedNewSlot = true;
-        return slot;
-    }
-
     public void AddSlot(PowerEnum powerType) {
         var slot = FindSlotByPower(powerType);
         if (slot == null) {
-            slot = AddEmptySlot();
-            slot.Power = powerType;
+            slot = slot = ((GameObject)Instantiate(slotPrefab)).GetComponent<Slot>();
+            slot.transform.parent = this.transform;
+            Slots.Add(slot);
+            _addedNewSlot = true;
+            slot.ChangeModel(powerType,transform);
         }
         slot.IsActive = true;
         slot.IsFull = true;
-        slot.timeToEndInSec = timeToEndInSec;
-        slot.usingMuliplayer = usingMultiplayer;
-
 
     }
 
@@ -135,12 +128,12 @@ public class SlotManager : MonoBehaviour {
             if (slotsPosition == SlotsPosition.Horizontal) {
                 for (int i = 1; i < Slots.Count; i++) {
                     Vector3 prevPos = Slots[i - 1].transform.localPosition;
-                    Slots[i].transform.localPosition = new Vector3(prevPos.x + offSet + Slots[i - 1].Width / 2, prevPos.y, 0);
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x + offSet + Slots[i - 1].Width, prevPos.y, 0);
                 }
-            } else {
+            } else if (slotsPosition == SlotsPosition.Vertical) {
                 for (int i = 1; i < Slots.Count; i++) {
                     Vector3 prevPos = Slots[i - 1].transform.localPosition;
-                    Slots[i].transform.localPosition = new Vector3(prevPos.x, prevPos.y + offSet + Slots[i - 1].Height / 2, 0);
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x, prevPos.y - offSet - Slots[i - 1].Height, 0);
                 }
             }
         }

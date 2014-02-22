@@ -41,3 +41,7 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
+  - name: Slots
+    userID: 1
+    uniqueID: 3470022553
+    locked: 0
