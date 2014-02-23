@@ -48,7 +48,7 @@ MonoBehaviour:
     spriteFaceDeactivated: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504,
       type: 3}
     name: SlotBalls
-    timeToEndInSec: 60
+    timeToEndInSec: 100
     usingMultiPlayer: 1
   - power: 1
     spriteRing: {fileID: 21300000, guid: 668ea0c1e5f85664c9e076e8b0100b3b, type: 3}
