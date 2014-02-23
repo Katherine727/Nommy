@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
-
 public class SlotManager : MonoBehaviour {
     public enum SlotsPosition {
         Unknown,
@@ -15,6 +13,7 @@ public class SlotManager : MonoBehaviour {
     private List<Slot> _slots;
     private SlotsPosition previousSlotsPosition;
     private bool _addedNewSlot;
+    private float prevOffSet;
 
     public SlotsPosition slotsPosition;
     public GameObject slotPrefab;
@@ -62,6 +61,11 @@ public class SlotManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         transform.position = Camera.main.ViewportToWorldPoint(position);
+
+        if (offSet != prevOffSet) {
+            SetPosition();
+            prevOffSet = offSet;
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             IndexOfActivatedSlot = 0;
