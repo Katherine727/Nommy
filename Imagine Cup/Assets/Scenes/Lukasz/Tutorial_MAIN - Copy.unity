@@ -4682,7 +4682,7 @@ MonoBehaviour:
       type: 3}
     name: SlotBalls
     timeToEndInSec: 100
-    usingMultiPlayer: 1
+    usingMultiPlayer: 5
   - power: 1
     spriteRing: {fileID: 21300000, guid: 668ea0c1e5f85664c9e076e8b0100b3b, type: 3}
     background: {fileID: 0}
@@ -4692,7 +4692,7 @@ MonoBehaviour:
       type: 3}
     name: SlotFireBalls
     timeToEndInSec: 120
-    usingMultiPlayer: 1
+    usingMultiPlayer: 10
   - power: 2
     spriteRing: {fileID: 21300000, guid: 84765fa1c4029664181f06eac723efb0, type: 3}
     background: {fileID: 0}
@@ -4702,7 +4702,7 @@ MonoBehaviour:
       type: 3}
     name: SlotTest
     timeToEndInSec: 120
-    usingMultiPlayer: 1
+    usingMultiPlayer: 2
 --- !u!114 &1970073695
 MonoBehaviour:
   m_ObjectHideFlags: 0

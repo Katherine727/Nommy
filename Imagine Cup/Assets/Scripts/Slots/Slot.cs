@@ -10,6 +10,7 @@ public class Slot : MonoBehaviour {
     private bool _isActive;
     private bool _isFull;
     private bool _isActivated;
+    private bool _isUsing;
     private ProgressBar _progressBar;
     private SpriteRenderer _childSpriteRenderer;
     private PowerEnum _power;
@@ -19,6 +20,9 @@ public class Slot : MonoBehaviour {
         get {
             if (_progressBar == null) {
                 _progressBar = transform.GetComponent<ProgressBar>();
+                if (_progressBar == null) { //komponent musi istniec
+                    throw new MissingComponentException("You have to add ProgressBar component to use Slots.");
+                }
             }
             return _progressBar;
         }
@@ -31,38 +35,63 @@ public class Slot : MonoBehaviour {
 
     private SlotModel Model {
         get {
-            if (_model == null) {
+            if (_model == null) { //niesli nie ma gotowego modelu, tworzymy domyślny
                 _model = new SlotModel();
             }
             return _model;
         }
         set {
+            //Jesli zmieniamy model, mozemy zmienic tez maksymalna wartosc, co moze powodowac zepsucie wartosci
+            //aktualnej. Takze jesli wartosci maksymalne sa rozne, dostosowujemy wartosc aktualna.
             if (_model != null && value.timeToEndInSec != _model.timeToEndInSec) {
-                ActualValue = Mathf.Lerp(0,value.timeToEndInSec,ActualValueProc/100);
+                ActualValue = Mathf.Clamp(ActualValue, 0,value.timeToEndInSec);
             }
             _model = value;
-            Sprite_Renderer.sprite = _model.spriteRing;
+            Sprite_Renderer.sprite = _model.spriteRing; //podczepienie 'licznika'
             Progress_Bar.maxValue = _model.timeToEndInSec;
-            Progress_Bar.ReFill();
+            Progress_Bar.ReFill(); //wypelnienie licznika
         }
     }
 
-
+    /// <summary>
+    /// Value gives a multiplayer which multiplays delta value during the update. Multiplayer depends on IsUsing flag.
+    /// </summary>
+    public float UsingMulitplayer{
+        get {
+            if (IsUsing) {
+                return Model.usingMultiPlayer;
+            } else {
+                return 1;
+            }
+        }
+    }
+    /// <summary>
+    /// It is a flag, saying that given slot is active (created and filled with data).
+    /// </summary>
     [HideInInspector]
     public bool IsActive {
         get { return _isActive; }
         set { _isActive = value; }
     }
+
+    /// <summary>
+    /// Flag saying, if progress bar is full or not
+    /// </summary>
     [HideInInspector]
     public bool IsFull {
         get { return _isFull; }
         set {
             _isFull = value;
+            //kiedy ustawimy te flage na true, zapleniamy licznik
             if (ActualValue !=Progress_Bar.maxValue && _isFull == true) {
                 ActualValue = Progress_Bar.maxValue;
             }
         }
     }
+
+    /// <summary>
+    /// Flag saying if given slot is selected by user.
+    /// </summary>
     [HideInInspector]
     public bool IsActivated {
         get { return _isActivated; }
@@ -76,6 +105,23 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Flag indicates if slot is in 'using' mode. It'll be set if only IsActivated flag is set. Otherwise it will not.
+    /// </summary>
+    public bool IsUsing {
+        get {
+            return _isUsing;
+        }
+        set{
+            if (IsActivated) {
+                _isUsing = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Actual value of slot
+    /// </summary>
     [HideInInspector]
     public float ActualValue {
         get {
@@ -93,6 +139,9 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Actual value but as a percentage of max value.
+    /// </summary>
     [HideInInspector]
     public float ActualValueProc {
         get {
@@ -107,15 +156,18 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Power type assigned to slot.
+    /// </summary>
     [HideInInspector]
-    public PowerEnum Power { //nie powinien korzystac z modelu
+    public PowerEnum Power {
         get { return Model.power; }
         set {
             try {
                 if (transform.parent != null) {
                     ChangeModel(value, transform.parent);
                 } else {
-                    ChangeModel(value, transform);
+                    ChangeModel(value, transform); // jak nie ma parenta, to proba sprawdzenia samego siebie
                 }
             } catch (ArgumentNullException) {
                 throw new ArgumentNullException("There is no model for given power type!");
@@ -123,6 +175,9 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Width of slot, but given by width of sprite which shows progress bar by itself.
+    /// </summary>
     [HideInInspector]
     public float Width {
         get {
@@ -134,6 +189,9 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Height of slot, but given by height of sprite which shows progress bar by itself.
+    /// </summary>
     [HideInInspector]
     public float Height {
         get {
@@ -173,24 +231,34 @@ public class Slot : MonoBehaviour {
         childSpriteBgRenderer.sprite = Model.background;
         childSpriteBgRenderer.sortingLayerName = "Slots";
         childSpriteBgRenderer.sortingOrder = 0;
-
-        Debug.Log(Progress_Bar.ActualValue);
     }
 
     void Update() {
         if (IsActive) {
-            double deltaValue = Time.deltaTime * Model.usingMultiPlayer;
+            double deltaValue = Time.deltaTime * UsingMulitplayer;
             ActualValue -= (float)deltaValue;
         }
-        
         //Sprite_Renderer.material.SetFloat("_CutOff", 1 - Mathf.InverseLerp(0, Model.timeToEndInSec, ActualValue));
     }
+
+    /// <summary>
+    /// Method to change slot's model
+    /// </summary>
+    /// <param name="power">Power type</param>
+    /// <param name="obj">Object Transform of component which has SlotModelProvider component</param>
     public void ChangeModel(PowerEnum power, Transform obj) {
         SlotModelProvider sm = obj.GetComponent<SlotModelProvider>();
         if (sm != null && sm.models.Count > 0) {
             Model = sm.models.Where(m => m.power == power).First();
         }
     }
+
+    /// <summary>
+    /// Method to change slot's model
+    /// </summary>
+    /// <param name="power">Power type</param>
+    /// <param name="name">Name of slot - not important at this time</param>
+    /// <param name="obj">Object Transform of component which has SlotModelProvider component</param>
     public void ChangeModel(PowerEnum power, string name, Transform obj) {
         SlotModelProvider sm = obj.GetComponent<SlotModelProvider>();
         if (sm != null && sm.models.Count > 0) {
@@ -199,6 +267,10 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Method to change slot's model
+    /// </summary>
+    /// <param name="model">Ready model</param>
     public void ChangeModel(SlotModel model) {
         Model = model;
     }

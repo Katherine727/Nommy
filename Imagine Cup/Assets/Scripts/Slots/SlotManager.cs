@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class SlotManager : MonoBehaviour {
+
+    /// <summary>
+    /// Descripes setting of slots.
+    /// </summary>
     public enum SlotsPosition {
         Unknown,
         Horizontal,
@@ -53,20 +57,16 @@ public class SlotManager : MonoBehaviour {
         
 
 
-        //-########-TEST
+        //-########-TEST - DO USUNIECIA POZNIEJ
         AddSlot(PowerEnum.Balls);
         AddSlot(PowerEnum.Fireballs);
         AddSlot(PowerEnum.test);
     }
 
-    // Update is called once per frame
     void Update() {
         transform.position = Camera.main.ViewportToWorldPoint(position);
 
-        if (offSet != prevOffSet) {
-            SetPosition();
-            prevOffSet = offSet;
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             IndexOfActivatedSlot = 0;
@@ -78,14 +78,29 @@ public class SlotManager : MonoBehaviour {
             IndexOfActivatedSlot = 3;
         }
 
-        if (slotsPosition != previousSlotsPosition || _addedNewSlot) {
+        if (Slots.Count > 0) {
+            if (Input.GetMouseButton(0)) {
+                Slots[IndexOfActivatedSlot].IsUsing = true;
+            } else {
+                Slots[IndexOfActivatedSlot].IsUsing = false;
+            } 
+        }
+
+        //jesli zmienila sie wartosc offset, rodzaj pozycjonowania lub dodany nowy slot to zaktualizuj polozenie
+        if (offSet != prevOffSet || slotsPosition != previousSlotsPosition || _addedNewSlot) {
             SetPosition();
             previousSlotsPosition = slotsPosition;
+            prevOffSet = offSet;
             _addedNewSlot = false;
         }
         
     }
 
+    /// <summary>
+    /// Add new slot with given power type. First of all, it's looking for already added slot with given powertype.
+    /// If there is a none, it adds new, based on slot model.
+    /// </summary>
+    /// <param name="powerType">Power type</param>
     public void AddSlot(PowerEnum powerType) {
         var slot = FindSlotByPower(powerType);
         if (slot == null) {
@@ -100,6 +115,10 @@ public class SlotManager : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Deletes a slot. First of all, it's looking for a inactive slot, if there is a none, it's looking for deactivated slot
+    /// if there is also a none, it deletes last slot from the list.
+    /// </summary>
     public void DeleteSlot() {
         if (Slots.Count > 0) {
             var inActiveSlots = Slots.Where(s => s.IsActive == false) as List<Slot>;
@@ -119,15 +138,18 @@ public class SlotManager : MonoBehaviour {
             }
         }
     }
+    
     private void DestroySlot(Slot slot) {
         if (Slots.Remove(slot)) {
             Destroy(slot.gameObject);
         }
     }
+
     private Slot FindSlotByPower(PowerEnum powerType) {
         var slot = Slots.Where(s => s.Power == powerType).FirstOrDefault();
         return slot;
     }
+
     private void SetPosition() {
         if (Slots.Count > 0) {
             Slots[0].transform.localPosition = Vector3.zero;

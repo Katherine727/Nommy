@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.Utils{
 
+    /// <summary>
+    /// This class modeling slots.
+    /// </summary>
     [Serializable]
     public class SlotModel {
         public PowerEnum power;
