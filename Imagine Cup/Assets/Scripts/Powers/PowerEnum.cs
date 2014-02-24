@@ -2,6 +2,7 @@
 using System.Collections;
 
 public enum PowerEnum{ //tylko przykład
-        Balls,
-        Fireballs
+    Balls,
+    Fireballs,
+    test
 }

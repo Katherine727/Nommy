@@ -10,19 +10,22 @@ public class Slot : MonoBehaviour {
     private bool _isActive;
     private bool _isFull;
     private bool _isActivated;
-    private float _actualValue;
-    private float _actualValueProc;
-    private SpriteRenderer spriteRenderer;
-    private SpriteRenderer childSpriteRenderer;
-
+    private ProgressBar _progressBar;
+    private SpriteRenderer _childSpriteRenderer;
+    private PowerEnum _power;
     private SlotModel _model;
 
+    private ProgressBar Progress_Bar {
+        get {
+            if (_progressBar == null) {
+                _progressBar = transform.GetComponent<ProgressBar>();
+            }
+            return _progressBar;
+        }
+    }
     private SpriteRenderer Sprite_Renderer {
         get {
-            if (spriteRenderer == null) {
-                spriteRenderer = transform.GetComponent<SpriteRenderer>();
-            }
-            return spriteRenderer;
+            return Progress_Bar.Sprite_Renderer;
         }
     }
 
@@ -35,11 +38,12 @@ public class Slot : MonoBehaviour {
         }
         set {
             if (_model != null && value.timeToEndInSec != _model.timeToEndInSec) {
-                var proc = ActualValueProc / 100;
-                ActualValue = value.timeToEndInSec * proc;
+                ActualValue = Mathf.Lerp(0,value.timeToEndInSec,ActualValueProc/100);
             }
             _model = value;
             Sprite_Renderer.sprite = _model.spriteRing;
+            Progress_Bar.maxValue = _model.timeToEndInSec;
+            Progress_Bar.ReFill();
         }
     }
 
@@ -54,8 +58,8 @@ public class Slot : MonoBehaviour {
         get { return _isFull; }
         set {
             _isFull = value;
-            if (ActualValue != Model.timeToEndInSec && _isFull == true) {
-                ActualValue = Model.timeToEndInSec;
+            if (ActualValue !=Progress_Bar.maxValue && _isFull == true) {
+                ActualValue = Progress_Bar.maxValue;
             }
         }
     }
@@ -65,9 +69,9 @@ public class Slot : MonoBehaviour {
         set { 
             _isActivated = value;
             if (_isActivated) {
-                childSpriteRenderer.sprite = Model.spriteFaceActivated;
+                _childSpriteRenderer.sprite = Model.spriteFaceActivated;
             } else {
-                childSpriteRenderer.sprite = Model.spriteFaceDeactivated;
+                _childSpriteRenderer.sprite = Model.spriteFaceDeactivated;
             }
         }
     }
@@ -75,17 +79,17 @@ public class Slot : MonoBehaviour {
     [HideInInspector]
     public float ActualValue {
         get {
-            return _actualValue;
+            return Progress_Bar.ActualValue;
         }
         private set {
 
-            if (Model.timeToEndInSec > 0) {
-                _actualValue = Mathf.Clamp(value, 0, Model.timeToEndInSec);
+            if (Progress_Bar.maxValue > 0) {
+                Progress_Bar.UseBar(Progress_Bar.ActualValue - value);
             } else {
                 throw new Exception("Time mustn't be equal to 0!");
             }
-            IsFull = (_actualValue == Model.timeToEndInSec) ? true : false;
-            IsActive = (_actualValue > 0) ? true : false;
+            IsFull = (Progress_Bar.ActualValue == Progress_Bar.maxValue) ? true : false;
+            IsActive = (Progress_Bar.ActualValue > 0) ? true : false;
         }
     }
 
@@ -93,8 +97,7 @@ public class Slot : MonoBehaviour {
     public float ActualValueProc {
         get {
             if (Model.timeToEndInSec > 0) {
-                _actualValueProc = Mathf.InverseLerp(0, Model.timeToEndInSec, ActualValue) * 100;
-                return _actualValueProc;
+                return Progress_Bar.ActualValueInProc;
             } else {
                 throw new Exception("Time mustn't be equal to 0!");
             }
@@ -105,16 +108,18 @@ public class Slot : MonoBehaviour {
     }
 
     [HideInInspector]
-    public PowerEnum Power {
+    public PowerEnum Power { //nie powinien korzystac z modelu
         get { return Model.power; }
         set {
-            if (transform.parent != null) {
-                ChangeModel(value, transform.parent);
-            } else {
-                ChangeModel(value, transform);
+            try {
+                if (transform.parent != null) {
+                    ChangeModel(value, transform.parent);
+                } else {
+                    ChangeModel(value, transform);
+                }
+            } catch (ArgumentNullException) {
+                throw new ArgumentNullException("There is no model for given power type!");
             }
-            _model.power = value;
-            Model = _model;
         }
     }
 
@@ -140,15 +145,24 @@ public class Slot : MonoBehaviour {
         }
     }
     void Start() {
+        //Progress Bar
+        Progress_Bar.maxValue = Model.timeToEndInSec;
+        Progress_Bar.Sprite_Renderer.sprite = Model.spriteRing;
+        Progress_Bar.transform.parent = transform;
+        Progress_Bar.transform.localPosition = Vector3.zero;
+        Progress_Bar.Sprite_Renderer.sortingLayerName = "Slots";
+        Progress_Bar.Sprite_Renderer.sortingOrder = 1;
+
+
         //'Wierzch' slotu 
         GameObject childObjectFace = new GameObject();
         childObjectFace.name = "TheFace";
         childObjectFace.transform.parent = transform;
         childObjectFace.transform.localPosition = Vector3.zero;
-        childSpriteRenderer = childObjectFace.AddComponent<SpriteRenderer>();
-        childSpriteRenderer.sprite = Model.spriteFaceDeactivated;
-        childSpriteRenderer.sortingLayerName = "Slots";
-        childSpriteRenderer.sortingOrder = 1;
+        _childSpriteRenderer = childObjectFace.AddComponent<SpriteRenderer>();
+        _childSpriteRenderer.sprite = Model.spriteFaceDeactivated;
+        _childSpriteRenderer.sortingLayerName = "Slots";
+        _childSpriteRenderer.sortingOrder = 1;
 
         //Tlo slotu
         GameObject childObjectBg = new GameObject();
@@ -159,6 +173,8 @@ public class Slot : MonoBehaviour {
         childSpriteBgRenderer.sprite = Model.background;
         childSpriteBgRenderer.sortingLayerName = "Slots";
         childSpriteBgRenderer.sortingOrder = 0;
+
+        Debug.Log(Progress_Bar.ActualValue);
     }
 
     void Update() {
@@ -166,18 +182,19 @@ public class Slot : MonoBehaviour {
             double deltaValue = Time.deltaTime * Model.usingMultiPlayer;
             ActualValue -= (float)deltaValue;
         }
-        Sprite_Renderer.material.SetFloat("_CutOff", 1 - Mathf.InverseLerp(0, Model.timeToEndInSec, ActualValue));
+        
+        //Sprite_Renderer.material.SetFloat("_CutOff", 1 - Mathf.InverseLerp(0, Model.timeToEndInSec, ActualValue));
     }
     public void ChangeModel(PowerEnum power, Transform obj) {
         SlotModelProvider sm = obj.GetComponent<SlotModelProvider>();
         if (sm != null && sm.models.Count > 0) {
-            Model = sm.models.Where(m => m.power == power).FirstOrDefault();
+            Model = sm.models.Where(m => m.power == power).First();
         }
     }
     public void ChangeModel(PowerEnum power, string name, Transform obj) {
         SlotModelProvider sm = obj.GetComponent<SlotModelProvider>();
         if (sm != null && sm.models.Count > 0) {
-            Model = sm.models.Where(m => m.power == power && m.name == name).FirstOrDefault();
+            Model = sm.models.Where(m => m.power == power && m.name == name).First();
 
         }
     }

@@ -56,6 +56,7 @@ public class SlotManager : MonoBehaviour {
         //-########-TEST
         AddSlot(PowerEnum.Balls);
         AddSlot(PowerEnum.Fireballs);
+        AddSlot(PowerEnum.test);
     }
 
     // Update is called once per frame
@@ -82,6 +83,7 @@ public class SlotManager : MonoBehaviour {
             previousSlotsPosition = slotsPosition;
             _addedNewSlot = false;
         }
+        
     }
 
     public void AddSlot(PowerEnum powerType) {
@@ -132,12 +134,12 @@ public class SlotManager : MonoBehaviour {
             if (slotsPosition == SlotsPosition.Horizontal) {
                 for (int i = 1; i < Slots.Count; i++) {
                     Vector3 prevPos = Slots[i - 1].transform.localPosition;
-                    Slots[i].transform.localPosition = new Vector3(prevPos.x + offSet + Slots[i - 1].Width, prevPos.y, 0);
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x + offSet + Slots[i - 1].Width + Slots[i].Width/2, prevPos.y, 0);
                 }
             } else if (slotsPosition == SlotsPosition.Vertical) {
                 for (int i = 1; i < Slots.Count; i++) {
                     Vector3 prevPos = Slots[i - 1].transform.localPosition;
-                    Slots[i].transform.localPosition = new Vector3(prevPos.x, prevPos.y - offSet - Slots[i - 1].Height, 0);
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x, prevPos.y - offSet - Slots[i - 1].Height - Slots[i].Height/2, 0);
                 }
             }
         }
