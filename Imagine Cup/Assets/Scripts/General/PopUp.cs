@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PopUp : MonoBehaviour {
+public class PopUp : MonoBehaviour, Assets.Utils.IStartable {
     public enum PopUpDisapearEffect {
         Transparency,
         CutOffEffect
@@ -44,6 +44,7 @@ public class PopUp : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(_applyEffect.ToString() + " " + _actualValue.ToString());
         _popUp.transform.localPosition = new Vector3(positionX,positionY,transform.position.z);
 
         if (PopUpSpriteRenderer.sprite != sprite || PopUpSpriteRenderer.material != material) {
@@ -78,12 +79,15 @@ public class PopUp : MonoBehaviour {
             PopUpSpriteRenderer.material.color = new Color(1, 1, 1, value);
         }
     }
-    void OnTriggerEnter2D(Collider2D c) {
-        if (c.gameObject.layer == LayerMask.NameToLayer("Player")) {
-            _applyEffect = true;
-            _actualValue = fadingTimeInSec;
-        }
+    //void OnTriggerEnter2D(Collider2D c) {
+    //    if (c.gameObject.layer == LayerMask.NameToLayer("Player")) {
+    //        _applyEffect = true;
+    //        _actualValue = fadingTimeInSec;
+    //    }
+    //}
+
+    void Assets.Utils.IStartable.Start() {
+        _applyEffect = true;
+        _actualValue = fadingTimeInSec;
     }
-
-
 }
