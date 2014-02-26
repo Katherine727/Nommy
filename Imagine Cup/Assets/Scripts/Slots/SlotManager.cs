@@ -21,7 +21,11 @@ public class SlotManager : MonoBehaviour {
 
     public SlotsPosition slotsPosition;
     public GameObject slotPrefab;
+
+    [Range(0,25)]
     public float offSet;
+
+    
     public Vector3 position;
 
 
@@ -156,12 +160,12 @@ public class SlotManager : MonoBehaviour {
             if (slotsPosition == SlotsPosition.Horizontal) {
                 for (int i = 1; i < Slots.Count; i++) {
                     Vector3 prevPos = Slots[i - 1].transform.localPosition;
-                    Slots[i].transform.localPosition = new Vector3(prevPos.x + offSet + Slots[i - 1].Width + Slots[i].Width/2, prevPos.y, 0);
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x + offSet + Slots[i - 1].Width/2 + Slots[i].Width/2, prevPos.y, 0);
                 }
             } else if (slotsPosition == SlotsPosition.Vertical) {
                 for (int i = 1; i < Slots.Count; i++) {
                     Vector3 prevPos = Slots[i - 1].transform.localPosition;
-                    Slots[i].transform.localPosition = new Vector3(prevPos.x, prevPos.y - offSet - Slots[i - 1].Height - Slots[i].Height/2, 0);
+                    Slots[i].transform.localPosition = new Vector3(prevPos.x, prevPos.y - offSet - Slots[i - 1].Height/2 - Slots[i].Height/2, 0);
                 }
             }
         }
