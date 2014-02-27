@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: b3bca88e8f4358c4f8e49750dfb3c782
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - klawisz: {fileID: 2800000, guid: d48d7ec4c9bd5b54baa1ffbd43fa4bd6, type: 3}
+  - MenuBackground: {fileID: 2800000, guid: d48d7ec4c9bd5b54baa1ffbd43fa4bd6, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

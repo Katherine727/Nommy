@@ -62,8 +62,9 @@ public class SplashScreen : MonoBehaviour
 	public SplashType splashType;
 	
 	private float alpha = 0.0f;
-	
-	private enum FadeStatus
+
+	[HideInInspector]
+	public enum FadeStatus
 	{
 		Paused,
 		FadeIn,
@@ -71,7 +72,15 @@ public class SplashScreen : MonoBehaviour
 		FadeOut
 	}
 	private FadeStatus status = FadeStatus.FadeIn;
-	
+
+	[HideInInspector]
+	public FadeStatus CurrentStatus
+	{
+		get {
+			return status;
+		}
+	}
+
 	private Camera oldCam;
 	private GameObject oldCamGO;
 	

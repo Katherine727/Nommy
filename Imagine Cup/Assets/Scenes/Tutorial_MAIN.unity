@@ -1548,6 +1548,7 @@ MonoBehaviour:
     type: 3}
   CursorHoverTexture: {fileID: 0}
   DrawCursor: 1
+  isCursorHover: 0
 --- !u!1 &672026013
 GameObject:
   m_ObjectHideFlags: 0
