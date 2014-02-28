@@ -108,7 +108,7 @@ public class SlotManager : MonoBehaviour {
     public void AddSlot(PowerEnum powerType) {
         var slot = FindSlotByPower(powerType);
         if (slot == null) {
-            slot = slot = ((GameObject)Instantiate(slotPrefab)).GetComponent<Slot>();
+            slot = ((GameObject)Instantiate(slotPrefab)).GetComponent<Slot>();
             slot.transform.parent = this.transform;
             Slots.Add(slot);
             _addedNewSlot = true;

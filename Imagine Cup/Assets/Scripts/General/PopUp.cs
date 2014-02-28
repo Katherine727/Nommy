@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PopUp : MonoBehaviour, Assets.Utils.IStartable {
+public class PopUp : MonoBehaviour, Assets.Utils.IStartable,Assets.Utils.IStopable {
     public enum PopUpDisapearEffect {
         Transparency,
         CutOffEffect
     }
+    public bool startWithEffect;
+    public bool endWithEffect;
     public Sprite sprite;
     public Material material;
-    public bool isVisibleDebug;
     public PopUpDisapearEffect disapearEffect;
     public float fadingTimeInSec;
+    public float apearingTimeInSec;
 
+    private float maxTime; // aktualny czas efektu (fading albo apearing) w zaleznosci od flagi _isApearing
+    private bool _isApearing; //tryb aktualnego pokazyania, czy sie wylania, czy chowa 
     private float _actualValue;
     private bool _applyEffect;
     private SpriteRenderer _popUpSpriteRenderer;
@@ -24,13 +28,12 @@ public class PopUp : MonoBehaviour, Assets.Utils.IStartable {
             return _popUpSpriteRenderer;
         }
     }
-    [Range(-50,50)]
+    [Range(-30,30)]
     public float positionX;
-    [Range(-50, 50)]
+    [Range(-30, 30)]
     public float positionY;
 	// Use this for initialization
 	void Start () {
-        isVisibleDebug = false;
         _popUp = new GameObject();
         _popUp.name = "PopUpChild";
         _popUp.transform.parent = transform;
@@ -40,35 +43,31 @@ public class PopUp : MonoBehaviour, Assets.Utils.IStartable {
         _popUp.transform.localPosition = new Vector3(positionX, positionY, transform.position.z);
 
         _applyEffect = false;
+        _isApearing = true;
+        UpdateEffect(0);
 	}
 	
-	// Update is called once per frame
 	void Update () {
-        Debug.Log(_applyEffect.ToString() + " " + _actualValue.ToString());
+        maxTime = _isApearing ? apearingTimeInSec : fadingTimeInSec;
         _popUp.transform.localPosition = new Vector3(positionX,positionY,transform.position.z);
 
-        if (PopUpSpriteRenderer.sprite != sprite || PopUpSpriteRenderer.material != material) {
-            PopUpSpriteRenderer.sprite = sprite;
-            PopUpSpriteRenderer.material = material;
-        }
-
-        if (!isVisibleDebug) {
-            UpdateEffect(0);
-        }
-
         if (_applyEffect) {
-            if (_actualValue > 0) {
-                _actualValue -= Time.deltaTime;
-                UpdateEffect(Mathf.InverseLerp(0, fadingTimeInSec, _actualValue));
-                if (_actualValue <=0) {
+            if (_actualValue >= 0) {
+                if (endWithEffect && !_isApearing) {
+                    _actualValue -= Time.deltaTime; 
+                }
+                if (startWithEffect && _isApearing) {
+                    _actualValue += Time.deltaTime;
+                }
+                if (_actualValue <= 0 || _actualValue > maxTime) {
                     _applyEffect = false;
                 }
             }
         }
-
-        if (isVisibleDebug) {
-            UpdateEffect(1);
-        }
+        PopUpSpriteRenderer.sprite = sprite;
+        PopUpSpriteRenderer.material = material;
+        _actualValue = Mathf.Clamp(_actualValue, 0, maxTime);
+        UpdateEffect(Mathf.InverseLerp(0, maxTime, _actualValue));
 	}
     private void UpdateEffect(float value) {
         if (disapearEffect == PopUpDisapearEffect.CutOffEffect) {
@@ -79,15 +78,28 @@ public class PopUp : MonoBehaviour, Assets.Utils.IStartable {
             PopUpSpriteRenderer.material.color = new Color(1, 1, 1, value);
         }
     }
-    //void OnTriggerEnter2D(Collider2D c) {
-    //    if (c.gameObject.layer == LayerMask.NameToLayer("Player")) {
-    //        _applyEffect = true;
-    //        _actualValue = fadingTimeInSec;
-    //    }
-    //}
 
     void Assets.Utils.IStartable.Start() {
-        _applyEffect = true;
-        _actualValue = fadingTimeInSec;
+        _isApearing = true;
+        if (startWithEffect) {
+            var proc = Mathf.InverseLerp(0, maxTime, _actualValue);
+            _actualValue = apearingTimeInSec * proc;
+            _applyEffect = true;
+        } else {
+            _applyEffect = false;
+            _actualValue = apearingTimeInSec;
+        }
+    }
+
+    void Assets.Utils.IStopable.Stop() {
+        _isApearing = false;
+        if (endWithEffect) {
+            var proc = Mathf.InverseLerp(0, maxTime, _actualValue);
+            _actualValue = fadingTimeInSec * proc;
+            _applyEffect = true;
+        } else {
+            _applyEffect = false;
+            _actualValue = 0;
+        }
     }
 }
