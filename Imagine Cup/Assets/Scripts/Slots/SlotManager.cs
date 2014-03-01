@@ -13,7 +13,7 @@ public class SlotManager : MonoBehaviour {
         Vertical
     }
 
-    private int _indexOfActiveSlot;
+    private int _indexOfActiveSlot = 0;
     private List<Slot> _slots;
     private SlotsPosition previousSlotsPosition;
     private bool _addedNewSlot;
@@ -28,8 +28,18 @@ public class SlotManager : MonoBehaviour {
     
     public Vector3 position;
 
-
-    
+    /// <summary>
+    /// It gives activated slot if there is one
+    /// </summary>
+    public Slot ActivatedSlot {
+        get {
+            if (Slots.Count > 0) {
+                return Slots[IndexOfActivatedSlot];
+            } else {
+                return null;
+            }
+        }
+    }
     public int IndexOfActivatedSlot {
         get {
             return _indexOfActiveSlot;
@@ -64,12 +74,18 @@ public class SlotManager : MonoBehaviour {
         //-########-TEST - DO USUNIECIA POZNIEJ
         AddSlot(PowerEnum.Balls);
         AddSlot(PowerEnum.Fireballs);
-        AddSlot(PowerEnum.test);
     }
 
     void Update() {
-        transform.position = Camera.main.ViewportToWorldPoint(position);
 
+        //aby domyslnie byl jakis aktywowany slot; w start nie moge, bo nie ma pewnosci, 
+        //ze w slocie byla uruchomiona metoda Start, ktora potrzebuje do tych zmian
+        if (!ActivatedSlot.IsActivated) {
+            IndexOfActivatedSlot = IndexOfActivatedSlot;
+        }
+
+        transform.position = Camera.main.ViewportToWorldPoint(position);
+        
         
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
@@ -114,9 +130,8 @@ public class SlotManager : MonoBehaviour {
             _addedNewSlot = true;
             slot.ChangeModel(powerType,transform);
         }
-        slot.IsActive = true;
         slot.IsFull = true;
-
+        
     }
 
     /// <summary>

@@ -12,10 +12,10 @@ namespace Assets.Utils{
     [Serializable]
     public class SlotModel {
         public PowerEnum power;
-        public Sprite spriteRing;
+        public Sprite spriteProgressBar;
         public Sprite background;
-        public Sprite spriteFaceActivated;
-        public Sprite spriteFaceDeactivated;
+        public Sprite foreground;
+        public Sprite icon;
         public string name;
         public float timeToEndInSec;
         public float usingMultiPlayer;

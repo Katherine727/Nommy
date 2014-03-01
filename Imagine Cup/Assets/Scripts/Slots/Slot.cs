@@ -12,7 +12,7 @@ public class Slot : MonoBehaviour {
     private bool _isActivated;
     private bool _isUsing;
     private ProgressBar _progressBar;
-    private SpriteRenderer _childSpriteRenderer;
+    private SpriteRenderer _foregroundSpriteRenderer;
     private PowerEnum _power;
     private SlotModel _model;
 
@@ -47,11 +47,14 @@ public class Slot : MonoBehaviour {
                 ActualValue = Mathf.Clamp(ActualValue, 0,value.timeToEndInSec);
             }
             _model = value;
-            Sprite_Renderer.sprite = _model.spriteRing; //podczepienie 'licznika'
+            Sprite_Renderer.sprite = _model.spriteProgressBar; //podczepienie 'licznika'
             Progress_Bar.maxValue = _model.timeToEndInSec;
             Progress_Bar.ReFill(); //wypelnienie licznika
         }
     }
+
+    [Range(0,1)]
+    public float opacityDeactivatedSlot;
 
     /// <summary>
     /// Value gives a multiplayer which multiplays delta value during the update. Multiplayer depends on IsUsing flag.
@@ -66,12 +69,14 @@ public class Slot : MonoBehaviour {
         }
     }
     /// <summary>
-    /// It is a flag, saying that given slot is active (created and filled with data).
+    /// It is a flag, saying that given slot is active (created and filled with data - ready to use).
     /// </summary>
     [HideInInspector]
     public bool IsActive {
         get { return _isActive; }
-        set { _isActive = value; }
+        private set { 
+            _isActive = value;
+        }
     }
 
     /// <summary>
@@ -98,9 +103,11 @@ public class Slot : MonoBehaviour {
         set { 
             _isActivated = value;
             if (_isActivated) {
-                _childSpriteRenderer.sprite = Model.spriteFaceActivated;
+                _foregroundSpriteRenderer.sprite = Model.foreground;
+                _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, 0f);
             } else {
-                _childSpriteRenderer.sprite = Model.spriteFaceDeactivated;
+                _foregroundSpriteRenderer.sprite = Model.foreground;
+                _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot);
             }
         }
     }
@@ -120,7 +127,7 @@ public class Slot : MonoBehaviour {
     }
 
     /// <summary>
-    /// Actual value of slot
+    /// Actual value of slot. It also changes flags such as IsFull and IsActive.
     /// </summary>
     [HideInInspector]
     public float ActualValue {
@@ -135,7 +142,6 @@ public class Slot : MonoBehaviour {
                 throw new Exception("Time mustn't be equal to 0!");
             }
             IsFull = (Progress_Bar.ActualValue == Progress_Bar.maxValue) ? true : false;
-            IsActive = (Progress_Bar.ActualValue > 0) ? true : false;
         }
     }
 
@@ -157,7 +163,7 @@ public class Slot : MonoBehaviour {
     }
 
     /// <summary>
-    /// Power type assigned to slot.
+    /// Power type assigned to slot. If you change power type, it will also change model.
     /// </summary>
     [HideInInspector]
     public PowerEnum Power {
@@ -203,25 +209,6 @@ public class Slot : MonoBehaviour {
         }
     }
     void Start() {
-        //Progress Bar
-        Progress_Bar.maxValue = Model.timeToEndInSec;
-        Progress_Bar.Sprite_Renderer.sprite = Model.spriteRing;
-        Progress_Bar.transform.parent = transform;
-        Progress_Bar.transform.localPosition = Vector3.zero;
-        Progress_Bar.Sprite_Renderer.sortingLayerName = "Slots";
-        Progress_Bar.Sprite_Renderer.sortingOrder = 1;
-
-
-        //'Wierzch' slotu 
-        GameObject childObjectFace = new GameObject();
-        childObjectFace.name = "TheFace";
-        childObjectFace.transform.parent = transform;
-        childObjectFace.transform.localPosition = Vector3.zero;
-        _childSpriteRenderer = childObjectFace.AddComponent<SpriteRenderer>();
-        _childSpriteRenderer.sprite = Model.spriteFaceDeactivated;
-        _childSpriteRenderer.sortingLayerName = "Slots";
-        _childSpriteRenderer.sortingOrder = 1;
-
         //Tlo slotu
         GameObject childObjectBg = new GameObject();
         childObjectBg.name = "SlotBackgroud";
@@ -231,6 +218,39 @@ public class Slot : MonoBehaviour {
         childSpriteBgRenderer.sprite = Model.background;
         childSpriteBgRenderer.sortingLayerName = "Slots";
         childSpriteBgRenderer.sortingOrder = 0;
+        
+        //Progress Bar
+        Progress_Bar.maxValue = Model.timeToEndInSec;
+        Progress_Bar.Sprite_Renderer.sprite = Model.spriteProgressBar;
+        Progress_Bar.transform.parent = transform;
+        Progress_Bar.transform.localPosition = Vector3.zero;
+        Progress_Bar.Sprite_Renderer.sortingLayerName = "Slots";
+        Progress_Bar.Sprite_Renderer.sortingOrder = 1;
+
+        //Ikona
+        GameObject childObjectIcon = new GameObject();
+        childObjectIcon.name = "SlotIcon";
+        childObjectIcon.transform.parent = transform;
+        childObjectIcon.transform.localPosition = Vector3.zero;
+        var childSpriteIconRenderer = childObjectIcon.AddComponent<SpriteRenderer>();
+        childSpriteIconRenderer.sprite = Model.icon;
+        childSpriteIconRenderer.sortingLayerName = "Slots";
+        childSpriteIconRenderer.sortingOrder = 2;
+       
+        //'Wierzch' slotu 
+        GameObject childObjectForeground = new GameObject();
+        childObjectForeground.name = "TheFace";
+        childObjectForeground.transform.parent = transform;
+        childObjectForeground.transform.localPosition = Vector3.zero;
+        _foregroundSpriteRenderer = childObjectForeground.AddComponent<SpriteRenderer>();
+        _foregroundSpriteRenderer.sprite = Model.foreground;
+        _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot);
+        _foregroundSpriteRenderer.sortingLayerName = "Slots";
+        _foregroundSpriteRenderer.sortingOrder = 3;
+
+        IsActivated = false;
+        IsActive = true;
+
     }
 
     void Update() {
@@ -238,7 +258,9 @@ public class Slot : MonoBehaviour {
             double deltaValue = Time.deltaTime * UsingMulitplayer;
             ActualValue -= (float)deltaValue;
         }
-        //Sprite_Renderer.material.SetFloat("_CutOff", 1 - Mathf.InverseLerp(0, Model.timeToEndInSec, ActualValue));
+        if (!IsActivated) {
+            _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot); 
+        }
     }
 
     /// <summary>
