@@ -8,8 +8,11 @@ public class MouseScript : MonoBehaviour {
 
 	public Texture2D CursorDefaultTexture;
 	public Texture2D CursorHoverTexture;
+
+	[HideInInspector]
 	public bool DrawCursor = true;
 
+	[HideInInspector]
 	public bool isCursorHover = false;
 
 	void Start()
