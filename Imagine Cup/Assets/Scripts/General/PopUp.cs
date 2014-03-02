@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class PopUp : MonoBehaviour, Assets.Utils.IStartable,Assets.Utils.IStopable {
+using Assets.Utils;
+public class PopUp : MonoBehaviour, ISwitchable {
     public enum PopUpDisapearEffect {
         Transparency,
         CutOffEffect
@@ -79,7 +79,7 @@ public class PopUp : MonoBehaviour, Assets.Utils.IStartable,Assets.Utils.IStopab
         }
     }
 
-    void Assets.Utils.IStartable.Start() {
+    void ISwitchable.SwitchOn() {
         _isApearing = true;
         if (startWithEffect) {
             var proc = Mathf.InverseLerp(0, maxTime, _actualValue);
@@ -91,7 +91,7 @@ public class PopUp : MonoBehaviour, Assets.Utils.IStartable,Assets.Utils.IStopab
         }
     }
 
-    void Assets.Utils.IStopable.Stop() {
+    void ISwitchable.SwitchOff() {
         _isApearing = false;
         if (endWithEffect) {
             var proc = Mathf.InverseLerp(0, maxTime, _actualValue);

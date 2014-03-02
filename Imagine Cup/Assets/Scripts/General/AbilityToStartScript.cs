@@ -7,14 +7,14 @@ public class AbilityToStartScript : MonoBehaviour {
     public string scriptName;
 
     public void StartInterface() {
-        var script = GetComponent(scriptName) as Assets.Utils.IStartable;
+        var script = GetComponent(scriptName) as Assets.Utils.ISwitchable;
        
-        script.Start();
+        script.SwitchOn();
     }
 
     public void StopInterface() {
-        var script = GetComponent(scriptName) as Assets.Utils.IStopable;
+        var script = GetComponent(scriptName) as Assets.Utils.ISwitchable;
 
-        script.Stop();
+        script.SwitchOff();
     }
 }
