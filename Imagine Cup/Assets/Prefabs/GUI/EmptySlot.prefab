@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfea366f9f9725241913bb156da92445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  opacityDeactivatedSlot: .600000024
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

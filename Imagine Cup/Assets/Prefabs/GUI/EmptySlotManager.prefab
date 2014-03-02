@@ -58,6 +58,15 @@ MonoBehaviour:
     name: SlotFireBalls
     timeToEndInSec: 120
     usingMultiPlayer: 10
+  - power: 0
+    spriteProgressBar: {fileID: 21300000, guid: 668ea0c1e5f85664c9e076e8b0100b3b,
+      type: 3}
+    background: {fileID: 0}
+    foreground: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504, type: 3}
+    icon: {fileID: 21300000, guid: 9bb1c3cf8701e4a48b2e0667d1739321, type: 3}
+    name: SlotFireBalls
+    timeToEndInSec: 120
+    usingMultiPlayer: 10
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,7 +81,7 @@ MonoBehaviour:
   slotsPosition: 1
   slotPrefab: {fileID: 100000, guid: 134a2f0fea7044440b37d5e9bbca8886, type: 2}
   offSet: 1
-  position: {x: .100000001, y: .899999976, z: 6}
+  position: {x: .100000001, y: .819999993, z: 6}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

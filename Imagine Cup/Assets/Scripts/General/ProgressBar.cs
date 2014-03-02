@@ -45,9 +45,8 @@ public class ProgressBar : MonoBehaviour {
         Sprite_Renderer.material.SetFloat("_CutOff", 1 - Mathf.InverseLerp(0, maxValue, ActualValue));
     }
     public void UseBar(float deltaValue) {
-        deltaValue = Mathf.Clamp(deltaValue, 0, maxValue);
-
         ActualValue -= deltaValue;
+        ActualValue = Mathf.Clamp(ActualValue, 0, maxValue);
     }
 
     public void ReFill() {

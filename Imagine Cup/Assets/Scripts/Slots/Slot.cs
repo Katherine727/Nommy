@@ -13,6 +13,8 @@ public class Slot : MonoBehaviour {
     private bool _isUsing;
     private ProgressBar _progressBar;
     private SpriteRenderer _foregroundSpriteRenderer;
+    private SpriteRenderer _childSpriteBgRenderer;
+    private SpriteRenderer _childSpriteIconRenderer;
     private PowerEnum _power;
     private SlotModel _model;
 
@@ -43,13 +45,22 @@ public class Slot : MonoBehaviour {
         set {
             //Jesli zmieniamy model, mozemy zmienic tez maksymalna wartosc, co moze powodowac zepsucie wartosci
             //aktualnej. Takze jesli wartosci maksymalne sa rozne, dostosowujemy wartosc aktualna.
-            if (_model != null && value.timeToEndInSec != _model.timeToEndInSec) {
-                ActualValue = Mathf.Clamp(ActualValue, 0,value.timeToEndInSec);
-            }
             _model = value;
             Sprite_Renderer.sprite = _model.spriteProgressBar; //podczepienie 'licznika'
+
             Progress_Bar.maxValue = _model.timeToEndInSec;
-            Progress_Bar.ReFill(); //wypelnienie licznika
+            if (IsActive) {
+                _foregroundSpriteRenderer.sprite = _model.foreground;
+                _childSpriteBgRenderer.sprite = _model.background;
+                _childSpriteIconRenderer.sprite = _model.icon; 
+            }
+            if (Power != PowerEnum.None) {
+                if (_model != null && value.timeToEndInSec != _model.timeToEndInSec) {
+                    Progress_Bar.maxValue = value.timeToEndInSec;
+                    ActualValue = value.timeToEndInSec;
+                }
+                Progress_Bar.ReFill(); //wypelnienie licznika 
+            }
         }
     }
 
@@ -142,6 +153,9 @@ public class Slot : MonoBehaviour {
                 throw new Exception("Time mustn't be equal to 0!");
             }
             IsFull = (Progress_Bar.ActualValue == Progress_Bar.maxValue) ? true : false;
+            if (Progress_Bar.ActualValue <= 0 && Power != PowerEnum.None) {
+                Power = PowerEnum.None;
+            }
         }
     }
 
@@ -209,15 +223,16 @@ public class Slot : MonoBehaviour {
         }
     }
     void Start() {
+        
         //Tlo slotu
         GameObject childObjectBg = new GameObject();
         childObjectBg.name = "SlotBackgroud";
         childObjectBg.transform.parent = transform;
         childObjectBg.transform.localPosition = Vector3.zero;
-        var childSpriteBgRenderer = childObjectBg.AddComponent<SpriteRenderer>();
-        childSpriteBgRenderer.sprite = Model.background;
-        childSpriteBgRenderer.sortingLayerName = "Slots";
-        childSpriteBgRenderer.sortingOrder = 0;
+        _childSpriteBgRenderer = childObjectBg.AddComponent<SpriteRenderer>();
+        _childSpriteBgRenderer.sprite = Model.background;
+        _childSpriteBgRenderer.sortingLayerName = "Slots";
+        _childSpriteBgRenderer.sortingOrder = 0;
         
         //Progress Bar
         Progress_Bar.maxValue = Model.timeToEndInSec;
@@ -232,10 +247,10 @@ public class Slot : MonoBehaviour {
         childObjectIcon.name = "SlotIcon";
         childObjectIcon.transform.parent = transform;
         childObjectIcon.transform.localPosition = Vector3.zero;
-        var childSpriteIconRenderer = childObjectIcon.AddComponent<SpriteRenderer>();
-        childSpriteIconRenderer.sprite = Model.icon;
-        childSpriteIconRenderer.sortingLayerName = "Slots";
-        childSpriteIconRenderer.sortingOrder = 2;
+        _childSpriteIconRenderer = childObjectIcon.AddComponent<SpriteRenderer>();
+        _childSpriteIconRenderer.sprite = Model.icon;
+        _childSpriteIconRenderer.sortingLayerName = "Slots";
+        _childSpriteIconRenderer.sortingOrder = 2;
        
         //'Wierzch' slotu 
         GameObject childObjectForeground = new GameObject();

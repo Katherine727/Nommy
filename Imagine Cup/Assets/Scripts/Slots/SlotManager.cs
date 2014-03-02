@@ -72,8 +72,8 @@ public class SlotManager : MonoBehaviour {
 
 
         //-########-TEST - DO USUNIECIA POZNIEJ
-        AddSlot(PowerEnum.Balls);
-        AddSlot(PowerEnum.Fireballs);
+        AddSlot(PowerEnum.BubbleJump);
+        AddSlot(PowerEnum.SugarBrick);
     }
 
     void Update() {
@@ -85,17 +85,19 @@ public class SlotManager : MonoBehaviour {
         }
 
         transform.position = Camera.main.ViewportToWorldPoint(position);
-        
-        
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            IndexOfActivatedSlot = 0;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            IndexOfActivatedSlot = 1;
-        } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            IndexOfActivatedSlot = 2;
-        } else if (Input.GetKeyDown(KeyCode.Alpha4)) {
-            IndexOfActivatedSlot = 3;
+
+
+        if (!ActivatedSlot.IsUsing) {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) {
+                IndexOfActivatedSlot = 0;
+            } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+                IndexOfActivatedSlot = 1;
+            } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+                IndexOfActivatedSlot = 2;
+            } else if (Input.GetKeyDown(KeyCode.Alpha4)) {
+                IndexOfActivatedSlot = 3;
+            } 
         }
 
         if (Slots.Count > 0) {
