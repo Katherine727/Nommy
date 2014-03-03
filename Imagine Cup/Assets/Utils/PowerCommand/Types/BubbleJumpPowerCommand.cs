@@ -11,7 +11,11 @@ using System;
 using UnityEngine;
 using Assets.Utils;
 
+<<<<<<< HEAD
 namespace Assets.Utils.PowerCommand.Types
+=======
+namespace Assets.Utils.PowerCommand
+>>>>>>> 2d45a54b11a4bd17e18d16779f575c0e03869cea
 {
 		public class BubbleJumpPowerCommand: ICommand
 		{

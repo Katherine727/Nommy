@@ -10,8 +10,10 @@
 using System;
 using UnityEngine;
 
+<<<<<<< HEAD
 using Assets.Utils;
 using Assets.Utils.PowerCommand.Types;
+=======
 namespace Assets.Utils.PowerCommand
 {
 		/// <summary>
