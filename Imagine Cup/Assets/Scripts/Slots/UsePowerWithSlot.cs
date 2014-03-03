@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Utils.PowerCommand;
+using Assets.Utils;
 
 public class UsePowerWithSlot : MonoBehaviour {
 
     public GameObject slotManagerObject;
 
+    private PowerCommandFactory pcf;
     private SlotManager slotManager;
 	void Start () {
+        pcf = new PowerCommandFactory(this.gameObject);
         slotManager = slotManagerObject.GetComponent<SlotManager>();
         if (slotManager == null) {
             Debug.LogError("SlotManager component is required in given object.");
         }
-        //TODO!
-        //wczytanie komponentu zwiazanego z moco
 	}
 	
 	void Update () {
@@ -33,16 +35,22 @@ public class UsePowerWithSlot : MonoBehaviour {
         }
 
         if (slotManager.Slots.Count > 0) {
-            if (Input.GetMouseButton(0)) {
+            if (Input.GetKey(KeyCode.Space)) {
                 slotManager.Slots[slotManager.IndexOfActivatedSlot].IsUsing = true;
             } else {
                 slotManager.Slots[slotManager.IndexOfActivatedSlot].IsUsing = false;
             }
+            if (slotManager.ActivatedSlot.IsUsing) {
+                //Use brand you pała => sugarbrick C: => uzyj slotManager.ActivatedSlot.Power :)
+                UsePower(slotManager.ActivatedSlot.Power);
+            }
         }
 
-        if (slotManager.ActivatedSlot.IsUsing) {
-            //Use brand you pała => sugarbrick C: => uzyj slotManager.ActivatedSlot.Power :)
-        }
 
 	}
+    void UsePower(PowerEnum PowerType) {
+        ICommand PowerCommand = pcf.CreatePowerCommand(PowerType);
+
+        PowerCommand.Execute();
+    }
 }

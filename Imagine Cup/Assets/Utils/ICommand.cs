@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-namespace AssemblyCSharp
+namespace Assets.Utils
 {
 		public interface ICommand
 		{

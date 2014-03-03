@@ -10,7 +10,9 @@
 using System;
 using UnityEngine;
 
-namespace AssemblyCSharp
+using Assets.Utils;
+using Assets.Utils.PowerCommand.Types;
+namespace Assets.Utils.PowerCommand
 {
 		/// <summary>
 		/// Factory, which creates Exact Power Command for our needs depending on given PowerType.
