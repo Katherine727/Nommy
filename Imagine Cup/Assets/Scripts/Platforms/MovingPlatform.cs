@@ -22,7 +22,7 @@ public class MovingPlatform : MonoBehaviour, Assets.Utils.ISwitchable {
         transform.position = origin.position;
 	}
 	
-	void FixedUpdate () {
+	void Update () {
         if (IsSwitched) {
             if (transform.position == origin.position) {
                 _isTowards = true;
