@@ -10,7 +10,7 @@
 using System;
 using UnityEngine;
 
-namespace AssemblyCSharp
+namespace Assets.Utils.PowerCommand
 {
 		public class BubbleJumpPowerCommand: ICommand
 		{

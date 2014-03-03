@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using AssemblyCSharp;
+using Assets.Utils;
+using Assets.Utils.PowerCommand;
 
 public class PowerUser : MonoBehaviour {
 	private PowerCommandFactory pcf;
@@ -25,7 +26,6 @@ public class PowerUser : MonoBehaviour {
 				sm.Slots[sm.IndexOfActivatedSlot].IsUsing=false;
 			}
 		}
-		Debug.Log(sm.Slots[sm.IndexOfActivatedSlot].IsActive);
 	}
 
 	void UsePower(PowerEnum PowerType) {
