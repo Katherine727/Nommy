@@ -70,10 +70,10 @@ public class Slot : MonoBehaviour {
     /// <summary>
     /// Value gives a multiplayer which multiplays delta value during the update. Multiplayer depends on IsUsing flag.
     /// </summary>
-    public float UsingMulitplayer{
+    public float UsingMulitplier{
         get {
             if (IsUsing) {
-                return Model.usingMultiPlayer;
+                return Model.usingMultiplier;
             } else {
                 return 1;
             }
@@ -133,6 +133,9 @@ public class Slot : MonoBehaviour {
         set{
             if (IsActivated) {
                 _isUsing = value;
+            }
+            if (Power == PowerEnum.None) {
+                _isUsing = false;
             }
         }
     }
@@ -270,7 +273,7 @@ public class Slot : MonoBehaviour {
 
     void Update() {
         if (IsActive) {
-            double deltaValue = Time.deltaTime * UsingMulitplayer;
+            double deltaValue = Time.deltaTime * UsingMulitplier;
             ActualValue -= (float)deltaValue;
         }
         if (!IsActivated) {

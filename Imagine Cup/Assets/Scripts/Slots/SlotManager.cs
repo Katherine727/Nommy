@@ -21,6 +21,7 @@ public class SlotManager : MonoBehaviour {
 
     public SlotsPosition slotsPosition;
     public GameObject slotPrefab;
+    
 
     [Range(0,25)]
     public float offSet;
@@ -44,15 +45,11 @@ public class SlotManager : MonoBehaviour {
         get {
             return _indexOfActiveSlot;
         }
-        set {
-            if (Slots.Count > 0 && value < Slots.Count && value >= 0) {
-                Slots[_indexOfActiveSlot].IsActivated = false;
-                _indexOfActiveSlot = value;
-                Slots[_indexOfActiveSlot].IsActivated = true;
-            }
+        private set {
+            _indexOfActiveSlot = Mathf.Clamp(value,0,Slots.Count);
         }
     }
-
+    
     public List<Slot> Slots {
         get {
             return _slots;
@@ -81,32 +78,10 @@ public class SlotManager : MonoBehaviour {
         //aby domyslnie byl jakis aktywowany slot; w start nie moge, bo nie ma pewnosci, 
         //ze w slocie byla uruchomiona metoda Start, ktora potrzebuje do tych zmian
         if (!ActivatedSlot.IsActivated) {
-            IndexOfActivatedSlot = IndexOfActivatedSlot;
+            ActivateSlot(IndexOfActivatedSlot);
         }
 
         transform.position = Camera.main.ViewportToWorldPoint(position);
-
-
-
-        if (!ActivatedSlot.IsUsing) {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                IndexOfActivatedSlot = 0;
-            } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-                IndexOfActivatedSlot = 1;
-            } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
-                IndexOfActivatedSlot = 2;
-            } else if (Input.GetKeyDown(KeyCode.Alpha4)) {
-                IndexOfActivatedSlot = 3;
-            } 
-        }
-
-        if (Slots.Count > 0) {
-            if (Input.GetMouseButton(0)) {
-                Slots[IndexOfActivatedSlot].IsUsing = true;
-            } else {
-                Slots[IndexOfActivatedSlot].IsUsing = false;
-            } 
-        }
 
         //jesli zmienila sie wartosc offset, rodzaj pozycjonowania lub dodany nowy slot to zaktualizuj polozenie
         if (offSet != prevOffSet || slotsPosition != previousSlotsPosition || _addedNewSlot) {
@@ -118,6 +93,47 @@ public class SlotManager : MonoBehaviour {
         
     }
 
+    /// <summary>
+    /// Activate a slot with given index.
+    /// </summary>
+    /// <param name="slotIndex">Indicates if method activated a slot (then returns true, otherwise it returns false).</param>
+    /// <returns></returns>
+    public bool ActivateSlot(int slotIndex) {
+        bool isMethodWentWell = false;
+        if (Slots.Count > 0 && slotIndex < Slots.Count && slotIndex >= 0) {
+            Slots[IndexOfActivatedSlot].IsActivated = false;
+            IndexOfActivatedSlot = slotIndex;
+            Slots[IndexOfActivatedSlot].IsActivated = true;
+            isMethodWentWell = true;
+        }
+
+        return isMethodWentWell;
+    }
+
+    /// <summary>
+    /// Method activates next slot. If there is no more slots (current index is the last one)
+    /// it activates the first slot.
+    /// If Slots list is empty, nothing happens.
+    /// </summary>
+    public void ActivateNext() {
+        int indexOfNextSlot = (IndexOfActivatedSlot + 1) % Slots.Count;
+        ActivateSlot(indexOfNextSlot);
+    }
+
+    /// <summary>
+    /// Method activates previous slot. If there is no previous slot (current index is the first one)
+    /// it activates the last one.
+    /// If Slots list is empty, nothing happens.
+    /// </summary>
+    public void ActivatePrev() {
+
+        int indexOfNextSlot = IndexOfActivatedSlot - 1;
+        if (indexOfNextSlot < 0) {
+            indexOfNextSlot += Slots.Count;
+        }
+
+        ActivateSlot(indexOfNextSlot);
+    }
     /// <summary>
     /// Add new slot with given power type. First of all, it's looking for already added slot with given powertype.
     /// If there is a none, it adds new, based on slot model.

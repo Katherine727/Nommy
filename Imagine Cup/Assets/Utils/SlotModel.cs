@@ -18,7 +18,7 @@ namespace Assets.Utils{
         public Sprite icon;
         public string name;
         public float timeToEndInSec;
-        public float usingMultiPlayer;
+        public float usingMultiplier;
 
     }
 }
