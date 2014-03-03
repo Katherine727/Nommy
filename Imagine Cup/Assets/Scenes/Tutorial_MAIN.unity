@@ -253,7 +253,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 8a82272b5d8be2c4a8e4e16367f1f480, type: 3}
     name: SlotBalls
     timeToEndInSec: 10
-    usingMultiPlayer: 5
+    usingMultiplier: 0
   - power: 2
     spriteProgressBar: {fileID: 21300000, guid: 0d9c3d408cd13d74ba0fbbfa34b3dc10,
       type: 3}
@@ -262,7 +262,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 8a82272b5d8be2c4a8e4e16367f1f480, type: 3}
     name: SlotBalls
     timeToEndInSec: 10
-    usingMultiPlayer: 5
+    usingMultiplier: 0
 --- !u!114 &47773352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2960,6 +2960,26 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4b3ad893ef46ae347b01609f2b2548ad, type: 2}
+      propertyPath: m_LocalScale.x
+      value: -.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4b3ad893ef46ae347b01609f2b2548ad, type: 2}
+      propertyPath: m_LocalScale.y
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 4b3ad893ef46ae347b01609f2b2548ad, type: 2}
+      propertyPath: jumpHeight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 4b3ad893ef46ae347b01609f2b2548ad, type: 2}
+      propertyPath: gravity
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 4b3ad893ef46ae347b01609f2b2548ad, type: 2}
+      propertyPath: runSpeed
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b3ad893ef46ae347b01609f2b2548ad, type: 2}
   m_RootGameObject: {fileID: 1753024438}
@@ -4662,6 +4682,9 @@ GameObject:
   - 114: {fileID: 1753024443}
   - 114: {fileID: 1753024439}
   - 50: {fileID: 1753024440}
+  - 114: {fileID: 1753024448}
+  - 114: {fileID: 1753024447}
+  - 114: {fileID: 1753024446}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -4730,7 +4753,7 @@ Transform:
   m_GameObject: {fileID: 1753024438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.28391814, y: 8.58075428, z: -2}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: -.5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!114 &1753024443
@@ -4745,11 +4768,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb40f4bf6f6cb34eb61cedebc98e3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: -45
-  runSpeed: 13
+  gravity: -30
+  runSpeed: 9
   groundDamping: 20
   inAirDamping: 5
-  jumpHeight: 6
+  jumpHeight: 4
 --- !u!114 &1753024444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4805,6 +4828,45 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 3.98530507, y: 3.49885964}
   m_Center: {x: -3.05492847e-07, y: .028399542}
+--- !u!114 &1753024446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1753024438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4d5f0351cfa734abbc22c4d1662de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1753024447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400006, guid: 4b3ad893ef46ae347b01609f2b2548ad,
+    type: 2}
+  m_PrefabInternal: {fileID: 1141576600}
+  m_GameObject: {fileID: 1753024438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24448015dd763b5429c3e8ace69c3344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1753024448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400008, guid: 4b3ad893ef46ae347b01609f2b2548ad,
+    type: 2}
+  m_PrefabInternal: {fileID: 1141576600}
+  m_GameObject: {fileID: 1753024438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaefbd8d3bcec5458c77ef03c04e983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - PopUpPoint
+  - Switchers
+  - PlatformsSwitchedByPlayer
 --- !u!1 &1762954792
 GameObject:
   m_ObjectHideFlags: 0
