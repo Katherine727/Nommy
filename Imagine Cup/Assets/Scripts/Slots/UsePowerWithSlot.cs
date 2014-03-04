@@ -6,10 +6,15 @@ using Assets.Utils;
 public class UsePowerWithSlot : MonoBehaviour {
 
     public GameObject slotManagerObject;
+	public float PowerCooldown = 1f;
 
+	private float timeBetweenPowerUsage;
     private PowerCommandFactory pcf;
     private SlotManager slotManager;
+
+
 	void Start () {
+		timeBetweenPowerUsage = PowerCooldown;
         pcf = new PowerCommandFactory(this.gameObject);
         slotManager = slotManagerObject.GetComponent<SlotManager>();
         if (slotManager == null) {
@@ -18,6 +23,8 @@ public class UsePowerWithSlot : MonoBehaviour {
 	}
 	
 	void Update () {
+		timeBetweenPowerUsage += Time.deltaTime;
+
         if (!slotManager.ActivatedSlot.IsUsing) {
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 slotManager.ActivateSlot(0);
@@ -35,15 +42,18 @@ public class UsePowerWithSlot : MonoBehaviour {
         }
 
         if (slotManager.Slots.Count > 0) {
-            if (Input.GetKey(KeyCode.Space)) {
-                slotManager.Slots[slotManager.IndexOfActivatedSlot].IsUsing = true;
-            } else {
-                slotManager.Slots[slotManager.IndexOfActivatedSlot].IsUsing = false;
-            }
-            if (slotManager.ActivatedSlot.IsUsing) {
-                //Use brand you pała => sugarbrick C: => uzyj slotManager.ActivatedSlot.Power :)
-                UsePower(slotManager.ActivatedSlot.Power);
-            }
+			if(timeBetweenPowerUsage >= this.PowerCooldown) {
+	            if (Input.GetKey(KeyCode.Space)) {
+	                slotManager.Slots[slotManager.IndexOfActivatedSlot].IsUsing = true;
+	            } else {
+	                slotManager.Slots[slotManager.IndexOfActivatedSlot].IsUsing = false;
+	            }
+	            if (slotManager.ActivatedSlot.IsUsing) {
+	                //Use brand you pała => sugarbrick C: => uzyj slotManager.ActivatedSlot.Power :)
+	                UsePower(slotManager.ActivatedSlot.Power);
+					timeBetweenPowerUsage = 0f;
+	            }
+			}
         }
 
 
