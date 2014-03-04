@@ -182,6 +182,12 @@ public class SlotManager : MonoBehaviour {
         }
     }
 
+    public void RefillActivatedSlot(PowerEnum powerType) {
+        if (ActivatedSlot != null) {
+            ActivatedSlot.Power = powerType;
+        }
+    }
+
     private Slot FindSlotByPower(PowerEnum powerType) {
         var slot = Slots.Where(s => s.Power == powerType).FirstOrDefault();
         return slot;

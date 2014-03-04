@@ -180,7 +180,8 @@ public class Slot : MonoBehaviour {
     }
 
     /// <summary>
-    /// Power type assigned to slot. If you change power type, it will also change model.
+    /// Power type assigned to slot. If you change power type, it will also change model
+    /// which means changing sprites and basic values.
     /// </summary>
     [HideInInspector]
     public PowerEnum Power {
@@ -290,6 +291,7 @@ public class Slot : MonoBehaviour {
         SlotModelProvider sm = obj.GetComponent<SlotModelProvider>();
         if (sm != null && sm.models.Count > 0) {
             Model = sm.models.Where(m => m.power == power).First();
+
         }
     }
 
