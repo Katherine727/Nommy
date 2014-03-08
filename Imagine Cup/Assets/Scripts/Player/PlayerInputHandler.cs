@@ -82,12 +82,8 @@ public class PlayerInputHandler : MonoBehaviour
 			_animator.Play( Animator.StringToHash( "Jumping" ) );
 		}
 
-		//if( !_controller.isGrounded && _controller.velocity.y < 0) {
-		//	_animator.Play(Animator.StringToHash("Falling"));
-		//}
-
 		_animator.SetFloat("VelocityY", _controller.velocity.y);
-		
+		_animator.SetBool("IsGrounded", _controller.isGrounded);
 		
 		// apply horizontal speed smoothing it
 		var smoothedMovementFactor = _controller.isGrounded ? groundDamping : inAirDamping; // how fast do we change direction?
