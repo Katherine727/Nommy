@@ -14,6 +14,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: IsGrounded
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 1
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
@@ -57,6 +63,10 @@ Transition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: VelocityY
+    m_EventTreshold: -1
+    m_ExitTime: .666666627
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsGrounded
     m_EventTreshold: 0
     m_ExitTime: .666666627
   m_Atomic: 1
@@ -75,6 +85,10 @@ Transition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: VelocityY
+    m_EventTreshold: -1
+    m_ExitTime: .925000012
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsGrounded
     m_EventTreshold: 0
     m_ExitTime: .925000012
   m_Atomic: 1
