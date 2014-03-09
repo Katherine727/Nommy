@@ -12,14 +12,16 @@ public class UsePowerWithSlot : MonoBehaviour {
     private PowerCommandFactory pcf;
     private SlotManager slotManager;
 
-
-	void Start () {
-		timeBetweenPowerUsage = PowerCooldown;
+    void Awake() {
+        timeBetweenPowerUsage = PowerCooldown;
         pcf = new PowerCommandFactory(this.gameObject);
         slotManager = slotManagerObject.GetComponent<SlotManager>();
         if (slotManager == null) {
             Debug.LogError("SlotManager component is required in given object.");
         }
+    }
+	void Start () {
+		
 	}
 	
 	void Update () {

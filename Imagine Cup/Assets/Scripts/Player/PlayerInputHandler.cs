@@ -3,6 +3,13 @@ using System.Collections;
 
 public class PlayerInputHandler : MonoBehaviour
 {
+
+    [HideInInspector]
+    public bool GoingLeft { get; set; }
+
+    [HideInInspector]
+    public bool GoingRight { get; set; }
+
 	// movement config
 	public float gravity = -15f;
 	public float runSpeed = 8f;
@@ -55,6 +62,9 @@ public class PlayerInputHandler : MonoBehaviour
 			
 			if( _controller.isGrounded )
 				_animator.Play( Animator.StringToHash( "Walking" ) );
+
+            GoingRight = true;
+            GoingLeft = false;
 		}
 		else if( Input.GetKey( KeyCode.LeftArrow ) )
 		{
@@ -64,6 +74,9 @@ public class PlayerInputHandler : MonoBehaviour
 			
 			if( _controller.isGrounded )
 				_animator.Play( Animator.StringToHash( "Walking" ) );
+
+            GoingRight = false;
+            GoingLeft = true;
 		}
 		else
 		{
@@ -80,7 +93,8 @@ public class PlayerInputHandler : MonoBehaviour
 			_velocity.y = Mathf.Sqrt( 2f * jumpHeight * -gravity );
 			
 			_animator.Play( Animator.StringToHash( "Jumping" ) );
-		}
+
+        } 
 
 		//if( !_controller.isGrounded && _controller.velocity.y < 0) {
 		//	_animator.Play(Animator.StringToHash("Falling"));
@@ -97,6 +111,8 @@ public class PlayerInputHandler : MonoBehaviour
 		_velocity.y += gravity * Time.deltaTime;
 		
 		_controller.move( _velocity * Time.deltaTime );
+
+        //Debug.Log("GoingLeft: " + GoingLeft + " | " + "Going Right: " + GoingRight);
 	}
 	
 }

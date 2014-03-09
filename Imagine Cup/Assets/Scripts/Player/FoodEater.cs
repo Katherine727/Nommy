@@ -7,15 +7,17 @@ public class FoodEater : MonoBehaviour {
     public GameObject slotManagerObj;
 
     private SlotManager slotManager;
-	// Use this for initialization
-	void Start () {
+
+    void Awake() {
         slotManager = slotManagerObj.GetComponent<SlotManager>();
         if (slotManager == null) {
             Debug.LogError("SlotManager component is required for game to work properly.");
         }
+    }
+
+    void Start () {
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
@@ -30,7 +32,6 @@ public class FoodEater : MonoBehaviour {
             slotManager.RefillActivatedSlot(powerType);
 			Destroy(c.gameObject); //to niszcz go
 
-			//KOD DAJACY POWER UP I NASYCENIE TODO
 		}
 	}
 }
