@@ -46,7 +46,6 @@ public class ProgressBar : MonoBehaviour {
     }
     public void UseBar(float deltaValue) {
         ActualValue -= deltaValue;
-        ActualValue = Mathf.Clamp(ActualValue, 0, maxValue);
     }
 
     public void ReFill() {

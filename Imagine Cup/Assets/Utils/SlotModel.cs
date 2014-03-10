@@ -11,14 +11,17 @@ namespace Assets.Utils{
     /// </summary>
     [Serializable]
     public class SlotModel {
+
+
         public PowerEnum power;
         public Sprite spriteProgressBar;
         public Sprite background;
         public Sprite foreground;
         public Sprite icon;
         public string name;
-        public float timeToEndInSec;
-        public float usingMultiplier;
+        public float usingCooldownInSec;
+        public float maxTimeInSec;
+        public int numberOfSegments;
 
     }
 }

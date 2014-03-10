@@ -47,8 +47,9 @@ MonoBehaviour:
     foreground: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504, type: 3}
     icon: {fileID: 21300000, guid: 8a82272b5d8be2c4a8e4e16367f1f480, type: 3}
     name: SlotBalls
-    timeToEndInSec: 100
-    usingMultiplier: 10
+    usingCooldownInSec: 1
+    maxTimeInSec: 100
+    numberOfSegments: 5
   - power: 1
     spriteProgressBar: {fileID: 21300000, guid: 668ea0c1e5f85664c9e076e8b0100b3b,
       type: 3}
@@ -56,8 +57,9 @@ MonoBehaviour:
     foreground: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504, type: 3}
     icon: {fileID: 21300000, guid: 6068990adf61c8b408e0cdc89d56b67b, type: 3}
     name: SlotFireBalls
-    timeToEndInSec: 120
-    usingMultiplier: 10
+    usingCooldownInSec: 5
+    maxTimeInSec: 100
+    numberOfSegments: 5
   - power: 0
     spriteProgressBar: {fileID: 21300000, guid: 668ea0c1e5f85664c9e076e8b0100b3b,
       type: 3}
@@ -65,8 +67,9 @@ MonoBehaviour:
     foreground: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504, type: 3}
     icon: {fileID: 21300000, guid: 9bb1c3cf8701e4a48b2e0667d1739321, type: 3}
     name: SlotFireBalls
-    timeToEndInSec: 120
-    usingMultiplier: 0
+    usingCooldownInSec: 0
+    maxTimeInSec: 0
+    numberOfSegments: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

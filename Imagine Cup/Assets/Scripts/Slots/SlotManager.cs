@@ -13,7 +13,7 @@ public class SlotManager : MonoBehaviour {
         Vertical
     }
 
-    private int _indexOfActiveSlot = 0;
+    private int _indexOfActivatedSlot = 0;
     private List<Slot> _slots;
     private SlotsPosition previousSlotsPosition;
     private bool _addedNewSlot;
@@ -43,10 +43,10 @@ public class SlotManager : MonoBehaviour {
     }
     public int IndexOfActivatedSlot {
         get {
-            return _indexOfActiveSlot;
+            return _indexOfActivatedSlot;
         }
         private set {
-            _indexOfActiveSlot = Mathf.Clamp(value,0,Slots.Count);
+            _indexOfActivatedSlot = Mathf.Clamp(value,0,Slots.Count);
         }
     }
     
@@ -97,17 +97,15 @@ public class SlotManager : MonoBehaviour {
     /// Activate a slot with given index.
     /// </summary>
     /// <param name="slotIndex">Indicates if method activated a slot (then returns true, otherwise it returns false).</param>
-    /// <returns></returns>
+    /// <returns>If activation goes well, method will return true, otherwise it will return false</returns>
     public bool ActivateSlot(int slotIndex) {
-        bool isMethodWentWell = false;
         if (Slots.Count > 0 && slotIndex < Slots.Count && slotIndex >= 0) {
             Slots[IndexOfActivatedSlot].IsActivated = false;
             IndexOfActivatedSlot = slotIndex;
             Slots[IndexOfActivatedSlot].IsActivated = true;
-            isMethodWentWell = true;
         }
 
-        return isMethodWentWell;
+        return Slots[IndexOfActivatedSlot].IsActivated;
     }
 
     /// <summary>

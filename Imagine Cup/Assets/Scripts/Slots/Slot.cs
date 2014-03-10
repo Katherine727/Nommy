@@ -18,6 +18,8 @@ public class Slot : MonoBehaviour {
     private PowerEnum _power;
     private SlotModel _model;
 
+    private float usingCooldownCounter;
+
     private ProgressBar Progress_Bar {
         get {
             if (_progressBar == null) {
@@ -46,36 +48,40 @@ public class Slot : MonoBehaviour {
             //Jesli zmieniamy model, mozemy zmienic tez maksymalna wartosc, co moze powodowac zepsucie wartosci
             //aktualnej. Takze jesli wartosci maksymalne sa rozne, dostosowujemy wartosc aktualna.
             _model = value;
-            Sprite_Renderer.sprite = _model.spriteProgressBar; //podczepienie 'licznika'
+            if (_model != null && _model.power != PowerEnum.None) {
+                Progress_Bar.maxValue = _model.maxTimeInSec;
+                Progress_Bar.ReFill(); //wypelnienie licznika 
+            }
 
-            Progress_Bar.maxValue = _model.timeToEndInSec;
+            Sprite_Renderer.sprite = _model.spriteProgressBar; //podczepienie 'licznika'
+            Progress_Bar.maxValue = _model.maxTimeInSec;
             if (IsActive) {
                 _foregroundSpriteRenderer.sprite = _model.foreground;
                 _childSpriteBgRenderer.sprite = _model.background;
-                _childSpriteIconRenderer.sprite = _model.icon; 
-            }
-            if (Power != PowerEnum.None) {
-                if (_model != null && value.timeToEndInSec != _model.timeToEndInSec) {
-                    Progress_Bar.maxValue = value.timeToEndInSec;
-                    ActualValue = value.timeToEndInSec;
-                }
-                Progress_Bar.ReFill(); //wypelnienie licznika 
+                _childSpriteIconRenderer.sprite = _model.icon;
             }
         }
     }
 
-    [Range(0,1)]
+    [Range(0, 1)]
     public float opacityDeactivatedSlot;
+
+    public int ActualNumberOfSegments {
+        get {
+            var sps = Model.maxTimeInSec / Model.numberOfSegments;
+            return Mathf.FloorToInt(ActualValue / sps);
+        }
+    }
 
     /// <summary>
     /// Value gives a multiplayer which multiplays delta value during the update. Multiplayer depends on IsUsing flag.
     /// </summary>
-    public float UsingMulitplier{
+    public float UsingCooldown {
         get {
             if (IsUsing) {
-                return Model.usingMultiplier;
+                return Model.usingCooldownInSec;
             } else {
-                return 1;
+                return 0;
             }
         }
     }
@@ -85,7 +91,7 @@ public class Slot : MonoBehaviour {
     [HideInInspector]
     public bool IsActive {
         get { return _isActive; }
-        private set { 
+        private set {
             _isActive = value;
         }
     }
@@ -98,9 +104,9 @@ public class Slot : MonoBehaviour {
         get { return _isFull; }
         set {
             _isFull = value;
-            //kiedy ustawimy te flage na true, zapleniamy licznik
-            if (ActualValue !=Progress_Bar.maxValue && _isFull == true) {
-                ActualValue = Progress_Bar.maxValue;
+            //kiedy ustawimy te flage na true, zapelniamy licznik
+            if (ActualValue != Progress_Bar.maxValue && _isFull == true) {
+                Progress_Bar.ReFill();
             }
         }
     }
@@ -111,7 +117,7 @@ public class Slot : MonoBehaviour {
     [HideInInspector]
     public bool IsActivated {
         get { return _isActivated; }
-        set { 
+        set {
             _isActivated = value;
             if (_isActivated) {
                 _foregroundSpriteRenderer.sprite = Model.foreground;
@@ -130,11 +136,11 @@ public class Slot : MonoBehaviour {
         get {
             return _isUsing;
         }
-        set{
-            if (IsActivated) {
-                _isUsing = value;
+        private set {
+            if (ActualNumberOfSegments > 0) {
+                _isUsing = value; 
             }
-            if (Power == PowerEnum.None) {
+            if (Power == PowerEnum.None || !value) {
                 _isUsing = false;
             }
         }
@@ -152,11 +158,9 @@ public class Slot : MonoBehaviour {
 
             if (Progress_Bar.maxValue > 0) {
                 Progress_Bar.UseBar(Progress_Bar.ActualValue - value);
-            } else {
-                throw new Exception("Time mustn't be equal to 0!");
             }
             IsFull = (Progress_Bar.ActualValue == Progress_Bar.maxValue) ? true : false;
-            if (Progress_Bar.ActualValue <= 0 && Power != PowerEnum.None) {
+            if (Progress_Bar.maxValue==0 || (Progress_Bar.ActualValue <= 0 && Power != PowerEnum.None)) {
                 Power = PowerEnum.None;
             }
         }
@@ -168,14 +172,13 @@ public class Slot : MonoBehaviour {
     [HideInInspector]
     public float ActualValueProc {
         get {
-            if (Model.timeToEndInSec > 0) {
+            if (Model.maxTimeInSec > 0) {
                 return Progress_Bar.ActualValueInProc;
-            } else {
-                throw new Exception("Time mustn't be equal to 0!");
-            }
+            } 
+            return 0;
         }
         set {
-            ActualValue = Model.timeToEndInSec * value / 100f;
+            ActualValue = Model.maxTimeInSec * value * 0.01f;
         }
     }
 
@@ -226,8 +229,7 @@ public class Slot : MonoBehaviour {
             }
         }
     }
-    void Start() {
-        
+    void Awake() {
         //Tlo slotu
         GameObject childObjectBg = new GameObject();
         childObjectBg.name = "SlotBackgroud";
@@ -237,9 +239,9 @@ public class Slot : MonoBehaviour {
         _childSpriteBgRenderer.sprite = Model.background;
         _childSpriteBgRenderer.sortingLayerName = "Slots";
         _childSpriteBgRenderer.sortingOrder = 0;
-        
+
         //Progress Bar
-        Progress_Bar.maxValue = Model.timeToEndInSec;
+        Progress_Bar.maxValue = Model.maxTimeInSec;
         Progress_Bar.Sprite_Renderer.sprite = Model.spriteProgressBar;
         Progress_Bar.transform.parent = transform;
         Progress_Bar.transform.localPosition = Vector3.zero;
@@ -255,7 +257,7 @@ public class Slot : MonoBehaviour {
         _childSpriteIconRenderer.sprite = Model.icon;
         _childSpriteIconRenderer.sortingLayerName = "Slots";
         _childSpriteIconRenderer.sortingOrder = 2;
-       
+
         //'Wierzch' slotu 
         GameObject childObjectForeground = new GameObject();
         childObjectForeground.name = "TheFace";
@@ -269,17 +271,30 @@ public class Slot : MonoBehaviour {
 
         IsActivated = false;
         IsActive = true;
-
+    }
+    void Start() {
+        usingCooldownCounter = 0;
     }
 
     void Update() {
         if (IsActive) {
-            double deltaValue = Time.deltaTime * UsingMulitplier;
-            ActualValue -= (float)deltaValue;
+            if (!IsUsing) {
+                ActualValue -= (float)Time.deltaTime;
+            } else {
+                if (usingCooldownCounter == 0 && ActualNumberOfSegments > 0) {
+                    ActualValue -= Model.maxTimeInSec / Model.numberOfSegments;
+                }
+                usingCooldownCounter += Time.deltaTime;
+            }
+            if (usingCooldownCounter > Model.usingCooldownInSec) {
+                usingCooldownCounter = 0;
+                IsUsing = false;
+            }
         }
         if (!IsActivated) {
-            _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot); 
+            _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot);
         }
+        Debug.Log(Power.ToString() + ": " + usingCooldownCounter + " | ActualNumberOfSegments: " + ActualNumberOfSegments);
     }
 
     /// <summary>
@@ -293,6 +308,8 @@ public class Slot : MonoBehaviour {
             Model = sm.models.Where(m => m.power == power).First();
 
         }
+        usingCooldownCounter = 0;
+        IsUsing = false;
     }
 
     /// <summary>
@@ -315,6 +332,17 @@ public class Slot : MonoBehaviour {
     /// <param name="model">Ready model</param>
     public void ChangeModel(SlotModel model) {
         Model = model;
+        usingCooldownCounter = 0;
+        IsUsing = false;
+    }
+
+    /// <summary>
+    /// Put Slot in using mode.
+    /// </summary>
+    /// <returns>Actual state</returns>
+    public bool Use() {
+        IsUsing = true;
+        return usingCooldownCounter == 0 && IsUsing;
     }
 
 }
