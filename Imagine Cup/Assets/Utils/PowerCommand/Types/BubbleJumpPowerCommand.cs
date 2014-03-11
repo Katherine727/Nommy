@@ -17,7 +17,7 @@ namespace Assets.Utils.PowerCommand.Types
 		{
 			private CharacterController2D CC2D;
 			private PlayerInputHandler PIH;
-
+			private Animator A;
 			/// <summary>
 			/// Creates the Bubble Jump Power Command
 			/// </summary>
@@ -26,6 +26,7 @@ namespace Assets.Utils.PowerCommand.Types
 			{
 				CC2D = PowerUser.GetComponent<CharacterController2D>();			
 				PIH = PowerUser.GetComponent<PlayerInputHandler>();
+				A = PowerUser.GetComponent<Animator>();
 			}
 
 			#region ICommand implementation
@@ -33,6 +34,7 @@ namespace Assets.Utils.PowerCommand.Types
 			public void Execute ()
 			{
 				CC2D.velocity.y = Mathf.Sqrt( PIH.jumpHeight * -PIH.gravity + 10);
+				A.Play(Animator.StringToHash("Jumping"));
 			}
 			
 			#endregion
