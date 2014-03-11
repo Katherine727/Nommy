@@ -65,7 +65,7 @@ public class SugarBrickBehaviour : MonoBehaviour, ISwitchable {
             }
 
             //Debug.Log((_sbPS.isPlaying && Sprite_Renderer.material.color.a < 0.02).ToString() + " " + Sprite_Renderer.material.color.a.ToString());
-            if (!_sbPS.isPlaying && Sprite_Renderer.material.color.a < 0.02) {
+            if (_timerCounter >= _sbPS.duration) {
                 transform.DetachChildren(); //jesli player jest przyczepiony do bricka to go odczepia
                                             //obecnie brick nie dziala jak platforma (czyli nie dodaje go jako dziecka
                                             //ale istnieje taka mozliwosc
