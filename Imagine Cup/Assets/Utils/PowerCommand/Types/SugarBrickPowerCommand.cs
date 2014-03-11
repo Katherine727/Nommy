@@ -17,7 +17,7 @@ public class SugarBrickPowerCommand :  ICommand {
     #region ICommand implementation
 
     public void Execute() {
-        var obj = (GameObject)GameObject.Instantiate(Resources.Load("SugarBrick"));
+        var obj = (GameObject)GameObject.Instantiate(Resources.Load("Powers/Sugar Brick/SugarBrick"));
         obj.transform.position = CC2D.transform.position;
         obj.GetComponent<SugarBrickBehaviour>().Use(CC2D.GetComponent<PlayerInputHandler>());
 
