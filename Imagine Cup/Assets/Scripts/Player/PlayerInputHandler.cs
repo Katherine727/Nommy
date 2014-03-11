@@ -24,7 +24,7 @@ public class PlayerInputHandler : MonoBehaviour
 	private Animator _animator;
 	private RaycastHit2D _lastControllerColliderHit;
 	private Vector3 _velocity;
-	
+	private bool _jumped;
 	
 	void Awake()
 	{
@@ -93,10 +93,10 @@ public class PlayerInputHandler : MonoBehaviour
 		
 		
 		// we can only jump whilst grounded
-		if( _controller.isGrounded && Input.GetKeyDown( KeyCode.UpArrow ) )
+		if( !_jumped && Mathf.Abs(_controller.velocity.y) <= 1f && Input.GetKeyDown( KeyCode.UpArrow ) )
 		{
 			_velocity.y = Mathf.Sqrt( 2f * jumpHeight * -gravity );
-			
+			_jumped = true;
 			_animator.Play( Animator.StringToHash( "Jumping" ) );
 
         } 
@@ -113,6 +113,8 @@ public class PlayerInputHandler : MonoBehaviour
 		
 		_controller.move( _velocity * Time.deltaTime );
 
+		if(_controller.isGrounded)
+			_jumped=false;
         //Debug.Log("GoingLeft: " + GoingLeft + " | " + "Going Right: " + GoingRight);
 	}
 	
