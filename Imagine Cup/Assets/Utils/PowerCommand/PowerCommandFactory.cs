@@ -36,17 +36,6 @@ namespace Assets.Utils.PowerCommand
                     default:
                         return new BubbleJumpPowerCommand(_PowerUser);
 					//TODO
-					/*case PowerEnum.CandySpitter:
-
-						break;
-
-					case PowerEnum.SugarBrick:
-
-						break;
-
-					case PowerEnum.None:
-
-						break;*/
 				}
 			}
 		}
