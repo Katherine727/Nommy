@@ -294,7 +294,7 @@ public class Slot : MonoBehaviour {
         if (!IsActivated) {
             _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot);
         }
-        Debug.Log(Power.ToString() + ": " + usingCooldownCounter + " | ActualNumberOfSegments: " + ActualNumberOfSegments);
+        //Debug.Log(Power.ToString() + ": " + usingCooldownCounter + " | ActualNumberOfSegments: " + ActualNumberOfSegments);
     }
 
     /// <summary>

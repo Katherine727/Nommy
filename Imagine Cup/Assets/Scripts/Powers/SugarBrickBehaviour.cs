@@ -2,7 +2,7 @@
 using System.Collections;
 using Assets.Utils;
 
-public class SugarBrickBehaviour : MonoBehaviour, ISwitchable {
+public class SugarBrickBehaviour : MonoBehaviour {
 
     private bool _isUsing;
     private float _timerCounter;
@@ -50,7 +50,7 @@ public class SugarBrickBehaviour : MonoBehaviour, ISwitchable {
         if (_playerInputHandler != null) {
             if (_playerInputHandler.GoingLeft) {
                 Velocity = new Vector2(Velocity.x * (-1), Velocity.y);
-                transform.position -= new Vector3(2 * startingRelativePosition.x,0,0);
+                transform.position -= new Vector3(2 * startingRelativePosition.x, 0, 0);
             }
         }
     }
@@ -64,36 +64,30 @@ public class SugarBrickBehaviour : MonoBehaviour, ISwitchable {
                 _timerCounter += Time.deltaTime;
             }
 
-            //Debug.Log((_sbPS.isPlaying && Sprite_Renderer.material.color.a < 0.02).ToString() + " " + Sprite_Renderer.material.color.a.ToString());
             if (_timerCounter >= _sbPS.duration) {
                 transform.DetachChildren(); //jesli player jest przyczepiony do bricka to go odczepia
-                                            //obecnie brick nie dziala jak platforma (czyli nie dodaje go jako dziecka
-                                            //ale istnieje taka mozliwosc
+                //obecnie brick nie dziala jak platforma (czyli nie dodaje go jako dziecka
+                //ale istnieje taka mozliwosc
                 Destroy(_sbPS.gameObject); //usuniecie particli
                 Destroy(this.gameObject);
             }
-            if (_collider.IsOn) {
-                collider2D.rigidbody2D.velocity = Velocity / Time.deltaTime;
-            }
+            collider2D.rigidbody2D.velocity = Velocity / Time.deltaTime;
         }
 
     }
     public void Use(PlayerInputHandler playerInputHandler) {
         _playerInputHandler = playerInputHandler;
-        
+
         _isUsing = true;
     }
 
-    void ISwitchable.SwitchOn() {
-        transform.position = _collider.PreviousPosition;
-        Velocity = Vector2.zero;
-        collider2D.rigidbody2D.velocity = Velocity;
-        collider2D.rigidbody2D.gravityScale = 0;
-        _collider.IsOn = false;
+    void OnTriggerEnter2D(Collider2D c) {
+        if (c.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+            Velocity = Vector2.zero;
+            collider2D.rigidbody2D.velocity = Velocity;
+            collider2D.rigidbody2D.gravityScale = 0;
 
-        _sbPS.Play();
-    }
-
-    void ISwitchable.SwitchOff() {
+            _sbPS.Play();
+        }
     }
 }
