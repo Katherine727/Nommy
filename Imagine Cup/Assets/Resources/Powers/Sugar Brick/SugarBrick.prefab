@@ -8,14 +8,15 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400002}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   - 212: {fileID: 21200000}
   - 61: {fileID: 6100000}
   - 50: {fileID: 5000000}
+  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400002}
   m_Layer: 8
   m_Name: SugarBrick
-  m_TagString: Platforms
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.2462196, y: 10.6234379, z: 0}
+  m_LocalPosition: {x: -37.1110077, y: -8.49414825, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,7 +56,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: .639999986, y: .639999986}
   m_Center: {x: 0, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b958f843e8c0b334d99893bf7d65f12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptName: MovingPlatform
+  scriptName: SugarBrickBehaviour
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,12 +78,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06630351071b6544088910b8a9ecd761, type: 3}
+  m_Script: {fileID: 11500000, guid: 79570d0aad8576947854dcac99798d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 0}
-  destination: {fileID: 0}
-  speed: .0399999991
+  colliderCheckerType: 0
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0419f8294fbd448a33c0e134dfeb5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingRelativePosition: {x: 0, y: 0, z: 0}
+  sugarBrickParticlePrefab: {fileID: 100000, guid: 51dfff63992718f44aa9db37eba241cd,
+    type: 2}
+  _velocity: {x: .100000001, y: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -104,7 +118,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300002, guid: 0b63e7f3911460d4a85e6e7026936103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38c63fbfd7e84f6469a958fd1df6f944, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
