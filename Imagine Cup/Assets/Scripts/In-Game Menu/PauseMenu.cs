@@ -11,7 +11,8 @@ public class PauseMenu : MonoBehaviour
 
 	public GameObject pauseFilter;
 	private SpriteRenderer shadeSpriteRenderer;
-	
+	private MouseScript ms;
+
 	public GameObject start;
 	
 	public Color statColor = Color.yellow;
@@ -25,6 +26,7 @@ public class PauseMenu : MonoBehaviour
 	void Start() {
 		Time.timeScale = 1;
 		shadeSpriteRenderer = pauseFilter.GetComponent<SpriteRenderer> ();
+		ms = this.gameObject.GetComponent<MouseScript>();
 		Texture2D texture = new Texture2D (1, 1);
 		texture.SetPixel (0, 0, shadeSpriteRenderer.color);
 		Sprite sprite = Sprite.Create (texture, new Rect (0, 0, 2000, 2000), new Vector2 (0, 0));
@@ -101,6 +103,7 @@ public class PauseMenu : MonoBehaviour
 	}
 	
 	void PauseGame() {
+		ms.DrawCursor = true;
 		savedTimeScale = Time.timeScale;
 		Time.timeScale = 0;
 		AudioListener.pause = true;
@@ -110,6 +113,7 @@ public class PauseMenu : MonoBehaviour
 	}
 	
 	void UnPauseGame() {
+		ms.DrawCursor = false;
 		Time.timeScale = savedTimeScale;
 		AudioListener.pause = false;
 		if (pauseFilter)
