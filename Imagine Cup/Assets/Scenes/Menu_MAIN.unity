@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverSprite: {fileID: 21300000, guid: c2ae5bd2e75512e4092bd6db700c6b9f, type: 3}
   OnClickSprite: {fileID: 21300000, guid: c2ae5bd2e75512e4092bd6db700c6b9f, type: 3}
+  ActionType: 1
 --- !u!212 &6456848
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -435,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverSprite: {fileID: 21300000, guid: 6e74b7eccfa3a8548b10fd36822d68cf, type: 3}
   OnClickSprite: {fileID: 21300000, guid: 65f946e4e6a68774390a0843e98a7643, type: 3}
+  ActionType: 0
 --- !u!212 &216506343
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -620,6 +622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverSprite: {fileID: 21300000, guid: 25bcf893f0c5b9940a904f60991e0d33, type: 3}
   OnClickSprite: {fileID: 21300000, guid: 0168591d442686042a7daf2b52fa5d31, type: 3}
+  ActionType: 2
 --- !u!212 &851893155
 SpriteRenderer:
   m_ObjectHideFlags: 0
