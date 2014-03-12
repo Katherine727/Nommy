@@ -12,8 +12,9 @@ GameObject:
   - 114: {fileID: 11400000}
   - 212: {fileID: 21200000}
   - 61: {fileID: 6100000}
+  - 50: {fileID: 5000000}
   m_Layer: 0
-  m_Name: Switcher
+  m_Name: Switch
   m_TagString: Switchers
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -26,10 +27,25 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.35645103, y: 3.63500452, z: 0}
+  m_LocalPosition: {x: -2.14583206, y: -.489910126, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!50 &5000000
+Rigidbody2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 0
+  m_FixedAngle: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
 --- !u!61 &6100000
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -39,8 +55,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 3, y: 3}
-  m_Center: {x: 0, y: 0}
+  m_Size: {x: 1.78559947, y: .994235516}
+  m_Center: {x: -.607199669, y: -.075214386}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,8 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af110c4ecda773047afe9180ba5e5389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteOn: {fileID: 21300000, guid: 9bb1c3cf8701e4a48b2e0667d1739321, type: 3}
-  spriteOff: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504, type: 3}
+  spriteOn: {fileID: 21300000, guid: bd51de05b3ff6cf47be35327335f2757, type: 3}
+  spriteOff: {fileID: 21300000, guid: 9445d47bffe8aac448d2efbca54f14db, type: 3}
   isSwitchedOnStart: 1
   switchableElements:
   - {fileID: 0}
