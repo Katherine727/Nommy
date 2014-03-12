@@ -3,8 +3,10 @@ using System.Collections;
 
 using Assets.Utils;
 using System.Collections.Generic;
+
 public class Switcher : MonoBehaviour, ISwitchable {
 
+	private AudioSource asrc;
     private bool _isCollisionWithTrigger;
     private bool _isSwitched;
     private SpriteRenderer _spriteRenderer;
@@ -57,14 +59,27 @@ public class Switcher : MonoBehaviour, ISwitchable {
     public Sprite spriteOff;
     public bool isSwitchedOnStart;
     public List<Transform> switchableElements;
+	public AudioClip SwitchOnSound;
+	public AudioClip SwitchOffSound;
 
     void Start() {
         IsSwitched = isSwitchedOnStart;
     }
+
+	void Awake() {
+		if(SwitchOnSound!= null || SwitchOffSound != null)
+			asrc = this.gameObject.GetComponent<AudioSource>();
+	}
+
     void Update() {
+
         if (IsCollisionWithTrigger) {
             if (Input.GetKeyDown(KeyCode.F)) {
                 IsSwitched = !IsSwitched;
+				if(asrc!= null) {
+					asrc.clip = IsSwitched ? SwitchOffSound : SwitchOnSound;
+					asrc.Play();
+				}
             }
         }
 

@@ -736,6 +736,8 @@ MonoBehaviour:
   isSwitchedOnStart: 1
   switchableElements:
   - {fileID: 1338747720}
+  SwitchOnSound: {fileID: 0}
+  SwitchOffSound: {fileID: 0}
 --- !u!4 &284885327
 Transform:
   m_ObjectHideFlags: 0
@@ -1115,11 +1117,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400024, guid: d7cccbb9812dfd943b2f28415ec440ad, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -45.1174355
+      value: -14.2919445
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: d7cccbb9812dfd943b2f28415ec440ad, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -10.2919617
+      value: -8.21383953
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: d7cccbb9812dfd943b2f28415ec440ad, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2274,6 +2276,14 @@ Prefab:
       propertyPath: switchableElements.Array.data[0]
       value: 
       objectReference: {fileID: 2059510722}
+    - target: {fileID: 11400002, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
+      propertyPath: SwitchOnSound
+      value: 
+      objectReference: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+    - target: {fileID: 11400002, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
+      propertyPath: SwitchOffSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
   m_RootGameObject: {fileID: 1942724186}
@@ -2666,7 +2676,7 @@ Transform:
   m_PrefabInternal: {fileID: 470844471}
   m_GameObject: {fileID: 1072803975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -45.1174355, y: -10.2919617, z: 0}
+  m_LocalPosition: {x: -14.2919445, y: -8.21383953, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 786858320}
@@ -4256,6 +4266,7 @@ GameObject:
   - 212: {fileID: 1942724188}
   - 61: {fileID: 1942724187}
   - 50: {fileID: 1942724192}
+  - 82: {fileID: 1942724193}
   m_Layer: 0
   m_Name: Button 1
   m_TagString: Switchers
@@ -4329,6 +4340,8 @@ MonoBehaviour:
   isSwitchedOnStart: 1
   switchableElements:
   - {fileID: 2059510722}
+  SwitchOnSound: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+  SwitchOffSound: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
 --- !u!4 &1942724191
 Transform:
   m_ObjectHideFlags: 0
@@ -4356,6 +4369,64 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!82 &1942724193
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942724186}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: .699999988
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1001 &1947565893
 Prefab:
   m_ObjectHideFlags: 0
