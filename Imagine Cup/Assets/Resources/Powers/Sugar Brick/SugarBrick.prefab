@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0419f8294fbd448a33c0e134dfeb5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingRelativePosition: {x: 0, y: 0, z: 0}
+  startingRelativePosition: {x: 1, y: 0, z: 0}
   sugarBrickParticlePrefab: {fileID: 100000, guid: 51dfff63992718f44aa9db37eba241cd,
     type: 2}
   _velocity: {x: .200000003, y: 0}
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 38c63fbfd7e84f6469a958fd1df6f944, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9af19ecf59eda3c478bfbe90b101d972, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
