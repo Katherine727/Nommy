@@ -902,7 +902,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -20
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 2c1ad864ceba8c84cb13df96618b3c19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ca4517a8160fdbf41a2d1475fe1f94f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &446320979
 Transform:
@@ -3518,6 +3518,11 @@ Prefab:
       propertyPath: DrawCursor
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 960dce26ab7576d4595137de1be59ef9, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ca4517a8160fdbf41a2d1475fe1f94f7,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 960dce26ab7576d4595137de1be59ef9, type: 2}
   m_RootGameObject: {fileID: 660277457}
