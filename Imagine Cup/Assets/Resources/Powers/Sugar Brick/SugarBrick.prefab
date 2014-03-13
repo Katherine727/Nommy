@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0419f8294fbd448a33c0e134dfeb5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingRelativePosition: {x: 1.5, y: 0, z: 0}
+  startingRelativePosition: {x: .699999988, y: 0, z: 0}
   sugarBrickParticlePrefab: {fileID: 100000, guid: 51dfff63992718f44aa9db37eba241cd,
     type: 2}
   _velocity: {x: 1, y: 0}
