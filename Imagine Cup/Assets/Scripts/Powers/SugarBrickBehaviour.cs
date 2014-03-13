@@ -8,7 +8,7 @@ public class SugarBrickBehaviour : MonoBehaviour {
     private float _timerCounter;
     private SpriteRenderer _spriteRenderer;
     private PlayerInputHandler _playerInputHandler;
-
+	private CharacterController2D _CC2D;
     private ParticleSystem _sbPS;
 
     public Vector3 startingRelativePosition;
@@ -41,19 +41,20 @@ public class SugarBrickBehaviour : MonoBehaviour {
 
         _sbPS.Stop();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+		_CC2D = GetComponent<CharacterController2D>();
     }
 
     void Start() {
         transform.position += startingRelativePosition;
         if (_playerInputHandler != null) {
             if (_playerInputHandler.GoingLeft) {
-                Velocity = new Vector2(Velocity.x * (-1), Velocity.y);
+                Velocity = new Vector2(Velocity.x * (-500), Velocity.y);
                 transform.position -= new Vector3(2 * startingRelativePosition.x, 0, 0);
             }
         }
     }
 
-    void FixedUpdate() {
+    void Update() {
         if (_isUsing) {
 
             if (_timerCounter <= _sbPS.duration && _sbPS.isPlaying) {
@@ -68,8 +69,10 @@ public class SugarBrickBehaviour : MonoBehaviour {
                 //ale istnieje taka mozliwosc
                 Destroy(_sbPS.gameObject); //usuniecie particli
                 Destroy(this.gameObject);
-            }
-            collider2D.rigidbody2D.velocity = Velocity / Time.fixedDeltaTime;
+			}
+            //collider2D.rigidbody2D.velocity = Velocity / Time.fixedDeltaTime;
+
+			_CC2D.move(new Vector3(-Velocity.x*Time.deltaTime*5, Velocity.y, 0));
         }
 
     }
@@ -82,7 +85,7 @@ public class SugarBrickBehaviour : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D c) {
         if (c.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             Velocity = Vector2.zero;
-            collider2D.rigidbody2D.velocity = Velocity;
+            _CC2D.velocity = Velocity;
             collider2D.rigidbody2D.gravityScale = 0;
 
             _sbPS.Play();
