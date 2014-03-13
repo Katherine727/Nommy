@@ -38,6 +38,7 @@ public class SugarBrickBehaviour : MonoBehaviour {
         _sbPS = ((GameObject)Instantiate(sugarBrickParticlePrefab)).GetComponent<ParticleSystem>();
         _sbPS.transform.parent = transform;
         _sbPS.transform.localPosition = new Vector3(0, 0, transform.position.z);
+        transform.position += startingRelativePosition;
 
         _sbPS.Stop();
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -45,7 +46,6 @@ public class SugarBrickBehaviour : MonoBehaviour {
     }
 
     void Start() {
-        transform.position += startingRelativePosition;
         if (_playerInputHandler != null) {
             if (_playerInputHandler.GoingLeft) {
                 Velocity = new Vector2(Velocity.x * (-500), Velocity.y);
