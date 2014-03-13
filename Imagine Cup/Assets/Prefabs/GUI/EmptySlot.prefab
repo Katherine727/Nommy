@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxValue: 100
-  barType: 3
+  barType: 0
   spriteProgressBarFG: {fileID: 0}
   spriteProgressBarBG: {fileID: 0}
 --- !u!212 &21200000
