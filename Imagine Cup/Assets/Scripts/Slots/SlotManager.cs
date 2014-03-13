@@ -69,8 +69,8 @@ public class SlotManager : MonoBehaviour {
 
 
         //-########-TEST - DO USUNIECIA POZNIEJ
-        AddSlot(PowerEnum.BubbleJump);
-        AddSlot(PowerEnum.SugarBrick);
+        //AddSlot(PowerEnum.BubbleJump);
+        //AddSlot(PowerEnum.SugarBrick);
     }
 
     void Update() {
