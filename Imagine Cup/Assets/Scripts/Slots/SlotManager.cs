@@ -75,21 +75,23 @@ public class SlotManager : MonoBehaviour {
 
     void Update() {
 
-        //aby domyslnie byl jakis aktywowany slot; w start nie moge, bo nie ma pewnosci, 
-        //ze w slocie byla uruchomiona metoda Start, ktora potrzebuje do tych zmian
-        if (!ActivatedSlot.IsActivated) {
-            ActivateSlot(IndexOfActivatedSlot);
-        }
+		if(Slots.Count > 0) {
+       		//aby domyslnie byl jakis aktywowany slot; w start nie moge, bo nie ma pewnosci, 
+        	//ze w slocie byla uruchomiona metoda Start, ktora potrzebuje do tych zmian
+	        if (!ActivatedSlot.IsActivated) {
+	            ActivateSlot(IndexOfActivatedSlot);
+	        }
 
-        transform.position = Camera.main.ViewportToWorldPoint(position);
+	        transform.position = Camera.main.ViewportToWorldPoint(position);
 
-        //jesli zmienila sie wartosc offset, rodzaj pozycjonowania lub dodany nowy slot to zaktualizuj polozenie
-        if (offSet != prevOffSet || slotsPosition != previousSlotsPosition || _addedNewSlot) {
-            SetPosition();
-            previousSlotsPosition = slotsPosition;
-            prevOffSet = offSet;
-            _addedNewSlot = false;
-        }
+	        //jesli zmienila sie wartosc offset, rodzaj pozycjonowania lub dodany nowy slot to zaktualizuj polozenie
+	        if (offSet != prevOffSet || slotsPosition != previousSlotsPosition || _addedNewSlot) {
+	            SetPosition();
+	            previousSlotsPosition = slotsPosition;
+	            prevOffSet = offSet;
+	            _addedNewSlot = false;
+	        }
+		}
         
     }
 

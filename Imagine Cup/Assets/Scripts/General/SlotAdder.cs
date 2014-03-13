@@ -6,7 +6,6 @@ public class SlotAdder : MonoBehaviour {
 
 	void Awake() {
 		sm = FindObjectOfType<SlotManager>();
-		Debug.Log(sm);
 	}
 
 	// Use this for initialization
