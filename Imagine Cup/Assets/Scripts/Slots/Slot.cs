@@ -31,11 +31,6 @@ public class Slot : MonoBehaviour {
             return _progressBar;
         }
     }
-    private SpriteRenderer Sprite_Renderer {
-        get {
-            return Progress_Bar.Sprite_Renderer;
-        }
-    }
 
     private SlotModel Model {
         get {
@@ -53,7 +48,8 @@ public class Slot : MonoBehaviour {
                 Progress_Bar.ReFill(); //wypelnienie licznika 
             }
 
-            Sprite_Renderer.sprite = _model.spriteProgressBar; //podczepienie 'licznika'
+            //Progress_Bar.SpriteRendererFG.sprite = _model.spriteProgressBarFG; //podczepienie 'licznika'
+            //Progress_Bar.SpriteRendererBG.sprite = _model.spriteProgressBarBg;
             Progress_Bar.maxValue = _model.maxTimeInSec;
             if (IsActive) {
                 _foregroundSpriteRenderer.sprite = _model.foreground;
@@ -65,6 +61,9 @@ public class Slot : MonoBehaviour {
 
     [Range(0, 1)]
     public float opacityDeactivatedSlot;
+
+    public Vector3 offsetProgressBar;
+    
 
     public int ActualNumberOfSegments {
         get {
@@ -208,8 +207,8 @@ public class Slot : MonoBehaviour {
     [HideInInspector]
     public float Width {
         get {
-            if (Sprite_Renderer != null) {
-                return Sprite_Renderer.bounds.size.x;
+            if (_childSpriteBgRenderer != null) {
+                return _childSpriteBgRenderer.bounds.size.x;
             } else {
                 return 0;
             }
@@ -222,14 +221,19 @@ public class Slot : MonoBehaviour {
     [HideInInspector]
     public float Height {
         get {
-            if (Sprite_Renderer != null) {
-                return Sprite_Renderer.bounds.size.y;
+            if (_childSpriteBgRenderer != null) {
+                return _childSpriteBgRenderer.bounds.size.y;
             } else {
                 return 0;
             }
         }
     }
+
     void Awake() {
+        
+    }
+    void Start() {
+        usingCooldownCounter = 0;
         //Tlo slotu
         GameObject childObjectBg = new GameObject();
         childObjectBg.name = "SlotBackgroud";
@@ -242,11 +246,12 @@ public class Slot : MonoBehaviour {
 
         //Progress Bar
         Progress_Bar.maxValue = Model.maxTimeInSec;
-        Progress_Bar.Sprite_Renderer.sprite = Model.spriteProgressBar;
-        Progress_Bar.transform.parent = transform;
-        Progress_Bar.transform.localPosition = Vector3.zero;
-        Progress_Bar.Sprite_Renderer.sortingLayerName = "Slots";
-        Progress_Bar.Sprite_Renderer.sortingOrder = 1;
+
+        Progress_Bar.SpriteRendererFG.sprite = Model.spriteProgressBarFG; //podczepienie 'licznika'
+        Progress_Bar.SpriteRendererBG.sprite = Model.spriteProgressBarBg;
+        //Progress_Bar.name = "Slot";
+        //Progress_Bar.transform.parent = transform;
+        //Progress_Bar.transform.localPosition = Vector3.zero;
 
         //Ikona
         GameObject childObjectIcon = new GameObject();
@@ -272,11 +277,9 @@ public class Slot : MonoBehaviour {
         IsActivated = false;
         IsActive = true;
     }
-    void Start() {
-        usingCooldownCounter = 0;
-    }
 
     void Update() {
+        //Debug.Log( Width);
         if (IsActive) {
             if (!IsUsing) {
                 ActualValue -= (float)Time.deltaTime;
@@ -294,6 +297,8 @@ public class Slot : MonoBehaviour {
         if (!IsActivated) {
             _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot);
         }
+
+        Progress_Bar.ChangeLocalPosition(offsetProgressBar);
         //Debug.Log(Power.ToString() + ": " + usingCooldownCounter + " | ActualNumberOfSegments: " + ActualNumberOfSegments);
     }
 

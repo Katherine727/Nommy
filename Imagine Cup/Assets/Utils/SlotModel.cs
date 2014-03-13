@@ -14,9 +14,10 @@ namespace Assets.Utils{
 
 
         public PowerEnum power;
-        public Sprite spriteProgressBar;
+        public Sprite spriteProgressBarFG;
+        public Sprite spriteProgressBarBg;
         public Sprite background;
-        public Sprite foreground;
+        public Sprite foreground; //zaciemniacz
         public Sprite icon;
         public string name;
         public float usingCooldownInSec;
