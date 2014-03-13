@@ -102,6 +102,8 @@ public class CharacterController2D : MonoBehaviour {
     public BoxCollider2D boxCollider;
     [HideInInspector]
     public Rigidbody2D rigidBody2D;
+	[HideInInspector]
+	public Transform buttBubble;
 
     [HideInInspector]
     [NonSerialized]
@@ -145,6 +147,8 @@ public class CharacterController2D : MonoBehaviour {
         transform = GetComponent<Transform>();
         boxCollider = GetComponent<BoxCollider2D>();
         rigidBody2D = GetComponent<Rigidbody2D>();
+		buttBubble = transform.Find ("ButtBubbles");
+		buttBubble.particleSystem.Stop ();
 
         // figure out the distance between our rays in both directions
         // horizontal

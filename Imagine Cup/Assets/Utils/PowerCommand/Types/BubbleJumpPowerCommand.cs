@@ -22,7 +22,7 @@ namespace Assets.Utils.PowerCommand.Types
 			/// Creates the Bubble Jump Power Command
 			/// </summary>
 			/// <param name="PowerUser">Object which uses the power</param>
-			public BubbleJumpPowerCommand (GameObject PowerUser)
+		public BubbleJumpPowerCommand (GameObject PowerUser)
 			{
 				CC2D = PowerUser.GetComponent<CharacterController2D>();			
 				PIH = PowerUser.GetComponent<PlayerInputHandler>();
@@ -35,6 +35,7 @@ namespace Assets.Utils.PowerCommand.Types
 			{
 				CC2D.velocity.y = Mathf.Sqrt( PIH.jumpHeight * -PIH.gravity + 10);
 				A.Play(Animator.StringToHash("Jumping"));
+				CC2D.buttBubble.particleSystem.Emit (7);
 			}
 			
 			#endregion
