@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0f0f7b223da600f47bdd66a3a987f765
+guid: 18da21d7f1987994da8cc2d871817aab
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -20,10 +20,10 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 1024
   textureSettings:
-    filterMode: -1
+    filterMode: 2
     aniso: -1
     mipBias: -1
     wrapMode: -1
