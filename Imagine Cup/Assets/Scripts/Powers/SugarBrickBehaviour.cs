@@ -48,7 +48,7 @@ public class SugarBrickBehaviour : MonoBehaviour {
     void Start() {
         if (_playerInputHandler != null) {
             if (_playerInputHandler.GoingLeft) {
-                Velocity = new Vector2(Velocity.x * (-500), Velocity.y);
+                Velocity = new Vector2(Velocity.x * (-1), Velocity.y);
                 //transform.position -= new Vector3(2 * startingRelativePosition.x, 0, 0);
             }
         }
