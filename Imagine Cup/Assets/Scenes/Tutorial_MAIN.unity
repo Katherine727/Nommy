@@ -344,6 +344,75 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!1 &69458086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+  m_PrefabInternal: {fileID: 1072366149}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 69458090}
+  - 61: {fileID: 69458089}
+  - 50: {fileID: 69458088}
+  - 114: {fileID: 69458087}
+  m_Layer: 0
+  m_Name: Slot Adder
+  m_TagString: Untagged
+  m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &69458087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 162e6c9b23cba764697fe9e5ac55df94,
+    type: 2}
+  m_PrefabInternal: {fileID: 1072366149}
+  m_GameObject: {fileID: 69458086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5dc93c5c16e5f44b3d86a69149550b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &69458088
+Rigidbody2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5000000, guid: 162e6c9b23cba764697fe9e5ac55df94,
+    type: 2}
+  m_PrefabInternal: {fileID: 1072366149}
+  m_GameObject: {fileID: 69458086}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 0
+  m_FixedAngle: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+--- !u!61 &69458089
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: 162e6c9b23cba764697fe9e5ac55df94,
+    type: 2}
+  m_PrefabInternal: {fileID: 1072366149}
+  m_GameObject: {fileID: 69458086}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 1.34315407, y: 4.40354919}
+  m_Center: {x: -.0403747559, y: 1.70177317}
+--- !u!4 &69458090
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+  m_PrefabInternal: {fileID: 1072366149}
+  m_GameObject: {fileID: 69458086}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.71295786, y: -5.92085266, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &74608091
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,7 +1472,7 @@ Transform:
   m_GameObject: {fileID: 284885322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 86.4594345, y: 17.6602917, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2139199334}
 --- !u!50 &284885328
@@ -1687,9 +1756,9 @@ MonoBehaviour:
     spriteProgressBarBg: {fileID: 21300000, guid: d7b8cbac2508ebb44836f5609fac8a09,
       type: 3}
     background: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
-    foreground: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
+    foreground: {fileID: 21300000, guid: 0f0f7b223da600f47bdd66a3a987f765, type: 3}
     icon: {fileID: 21300000, guid: 8a82272b5d8be2c4a8e4e16367f1f480, type: 3}
-    name: SlotBalls
+    name: BubbleJump
     usingCooldownInSec: 1
     maxTimeInSec: 100
     numberOfSegments: 5
@@ -1699,9 +1768,9 @@ MonoBehaviour:
     spriteProgressBarBg: {fileID: 21300000, guid: d7b8cbac2508ebb44836f5609fac8a09,
       type: 3}
     background: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
-    foreground: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
+    foreground: {fileID: 21300000, guid: 0f0f7b223da600f47bdd66a3a987f765, type: 3}
     icon: {fileID: 21300000, guid: 989bfa5ed3f994a45a1494e79346902d, type: 3}
-    name: SlotFireBalls
+    name: SugarBrick
     usingCooldownInSec: 1
     maxTimeInSec: 100
     numberOfSegments: 5
@@ -1711,9 +1780,9 @@ MonoBehaviour:
     spriteProgressBarBg: {fileID: 21300000, guid: d7b8cbac2508ebb44836f5609fac8a09,
       type: 3}
     background: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
-    foreground: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
-    icon: {fileID: 21300000, guid: 0f0f7b223da600f47bdd66a3a987f765, type: 3}
-    name: SlotFireBalls
+    foreground: {fileID: 21300000, guid: 0f0f7b223da600f47bdd66a3a987f765, type: 3}
+    icon: {fileID: 0}
+    name: Empty
     usingCooldownInSec: 0
     maxTimeInSec: 0
     numberOfSegments: 0
@@ -2576,6 +2645,10 @@ Prefab:
       propertyPath: switchableElements.Array.data[0]
       value: 
       objectReference: {fileID: 1338747720}
+    - target: {fileID: 400000, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
   m_RootGameObject: {fileID: 284885322}
@@ -4103,6 +4176,46 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: .498039216}
+--- !u!1001 &1072366149
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.71295786
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -5.92085266
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 162e6c9b23cba764697fe9e5ac55df94, type: 2}
+  m_RootGameObject: {fileID: 69458086}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1072803975
 GameObject:
   m_ObjectHideFlags: 0

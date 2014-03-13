@@ -11,7 +11,7 @@ GameObject:
   - 61: {fileID: 6100000}
   - 50: {fileID: 5000000}
   - 114: {fileID: 11400000}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Slot Adder
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.9323349, y: -1.26303864, z: 0}
+  m_LocalPosition: {x: -4.71295786, y: -5.92085266, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,8 +53,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: 1.34315407, y: 1.06055665}
-  m_Center: {x: -.0403747559, y: .0302782059}
+  m_Size: {x: 1.34315407, y: 4.40354919}
+  m_Center: {x: -.0403747559, y: 1.70177317}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
