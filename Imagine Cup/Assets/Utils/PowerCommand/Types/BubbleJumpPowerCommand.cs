@@ -18,24 +18,30 @@ namespace Assets.Utils.PowerCommand.Types
 			private CharacterController2D CC2D;
 			private PlayerInputHandler PIH;
 			private Animator A;
+			private ButtBubbles BB;
+
 			/// <summary>
 			/// Creates the Bubble Jump Power Command
 			/// </summary>
 			/// <param name="PowerUser">Object which uses the power</param>
-		public BubbleJumpPowerCommand (GameObject PowerUser)
+			public BubbleJumpPowerCommand (GameObject PowerUser)
 			{
 				CC2D = PowerUser.GetComponent<CharacterController2D>();			
 				PIH = PowerUser.GetComponent<PlayerInputHandler>();
 				A = PowerUser.GetComponent<Animator>();
+				BB = PowerUser.GetComponent<ButtBubbles>();
 			}
 
 			#region ICommand implementation
 
 			public void Execute ()
 			{
-				CC2D.velocity.y = Mathf.Sqrt( PIH.jumpHeight * -PIH.gravity + 10);
-				A.Play(Animator.StringToHash("Jumping"));
-				CC2D.buttBubble.particleSystem.Emit (7);
+				if(!CC2D.isGrounded) {
+					CC2D.velocity.y = Mathf.Sqrt( PIH.jumpHeight * -PIH.gravity + 10);
+					A.Play(Animator.StringToHash("Jumping"));
+					BB.ParticleSystemObject.transform.rotation = new Quaternion( PIH.GoingLeft ? 114 : 66, BB.ParticleSystemObject.transform.rotation.y, BB.ParticleSystemObject.transform.rotation.z, BB.ParticleSystemObject.transform.rotation.w);
+					BB.ParticleSystemObject.particleSystem.Emit(4);					
+				}
 			}
 			
 			#endregion

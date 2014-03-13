@@ -19,6 +19,9 @@ public class PlayerInputHandler : MonoBehaviour
 	
 	[HideInInspector]
 	private float normalizedHorizontalSpeed = 0;
+
+	[HideInInspector]
+	public Transform buttBubble;
 	
 	private CharacterController2D _controller;
 	private Animator _animator;
@@ -31,6 +34,8 @@ public class PlayerInputHandler : MonoBehaviour
 		_animator = GetComponent<Animator>();
 		_controller = GetComponent<CharacterController2D>();
 		_controller.onControllerCollidedEvent += onControllerCollider;
+		buttBubble = transform.Find ("ButtBubbles");
+		buttBubble.particleSystem.Stop ();
 	}
 	
 	
