@@ -65,6 +65,9 @@ public class ProgressBar : MonoBehaviour {
         _bgObj.transform.localPosition = new Vector3(0, 0, transform.position.z);
         _bgObj.transform.parent = transform;
         _bgObj.name = "ProgressBarBG";
+        _bgObj.layer = LayerMask.NameToLayer("GUI");
+        SpriteRendererBG.sortingLayerName = "ProgressBar";
+        SpriteRendererBG.sortingOrder = 0;
         
         //fg
         transform.localPosition = Vector3.zero;
@@ -75,6 +78,9 @@ public class ProgressBar : MonoBehaviour {
         _fgObj.transform.parent = transform;
         _fgObj.transform.localPosition = new Vector3(0, 0, transform.position.z);
         _fgObj.name = "ProgressBarFG";
+        _bgObj.layer = LayerMask.NameToLayer("GUI");
+        SpriteRendererFG.sortingLayerName = "ProgressBar";
+        SpriteRendererFG.sortingOrder = 1;
         
         
     }

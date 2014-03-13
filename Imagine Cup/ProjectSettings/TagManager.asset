@@ -49,3 +49,7 @@ TagManager:
     userID: 1
     uniqueID: 3470022553
     locked: 0
+  - name: ProgressBar
+    userID: 2
+    uniqueID: 618368651
+    locked: 0

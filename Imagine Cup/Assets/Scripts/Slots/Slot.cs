@@ -240,6 +240,7 @@ public class Slot : MonoBehaviour {
         childObjectBg.transform.parent = transform;
         childObjectBg.transform.localPosition = Vector3.zero;
         _childSpriteBgRenderer = childObjectBg.AddComponent<SpriteRenderer>();
+        childObjectBg.layer = LayerMask.NameToLayer("GUI");
         _childSpriteBgRenderer.sprite = Model.background;
         _childSpriteBgRenderer.sortingLayerName = "Slots";
         _childSpriteBgRenderer.sortingOrder = 0;
@@ -260,6 +261,7 @@ public class Slot : MonoBehaviour {
         childObjectIcon.transform.localPosition = Vector3.zero;
         _childSpriteIconRenderer = childObjectIcon.AddComponent<SpriteRenderer>();
         _childSpriteIconRenderer.sprite = Model.icon;
+        childObjectIcon.layer = LayerMask.NameToLayer("GUI");
         _childSpriteIconRenderer.sortingLayerName = "Slots";
         _childSpriteIconRenderer.sortingOrder = 2;
 
@@ -271,6 +273,7 @@ public class Slot : MonoBehaviour {
         _foregroundSpriteRenderer = childObjectForeground.AddComponent<SpriteRenderer>();
         _foregroundSpriteRenderer.sprite = Model.foreground;
         _foregroundSpriteRenderer.material.color = new Color(1f, 1f, 1f, opacityDeactivatedSlot);
+        childObjectForeground.layer = LayerMask.NameToLayer("GUI");
         _foregroundSpriteRenderer.sortingLayerName = "Slots";
         _foregroundSpriteRenderer.sortingOrder = 3;
 
