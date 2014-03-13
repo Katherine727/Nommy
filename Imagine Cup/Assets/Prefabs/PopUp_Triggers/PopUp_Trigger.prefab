@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.0005245, y: 3.72799587, z: 0}
+  m_LocalPosition: {x: 80.6289902, y: 23.5792885, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,8 +55,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 3, y: 3}
-  m_Center: {x: 0, y: 0}
+  m_Size: {x: .946028709, y: .874139786}
+  m_Center: {x: 7.62939453e-06, y: -.0154037476}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,13 +70,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWithEffect: 1
   endWithEffect: 1
-  sprite: {fileID: 21300000, guid: e0c2e732b8a290541b546a12ec4ed299, type: 3}
+  sprite: {fileID: 21300000, guid: a7a77f9514706cc49972ec98a6a16ede, type: 3}
   material: {fileID: 2100000, guid: 67e9ec267d1a2074981ba58e75418e54, type: 2}
   disapearEffect: 0
   fadingTimeInSec: 5
   apearingTimeInSec: 2
-  positionX: 15.6999998
-  positionY: 7.80000019
+  positionX: 0
+  positionY: 2.20000005
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,9 +108,9 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300010, guid: 0b63e7f3911460d4a85e6e7026936103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9110bebe89338ea498712c30e3f3fb41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
