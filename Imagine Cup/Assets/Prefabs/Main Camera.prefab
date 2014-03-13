@@ -203,32 +203,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   models:
   - power: 2
-    spriteProgressBar: {fileID: 21300000, guid: bcb1eeaaef4fe4d45a394c77a5ce0c9b,
+    spriteProgressBarFG: {fileID: 21300000, guid: 4492952cfe55ece4cbc9a525a6f41e76,
       type: 3}
-    background: {fileID: 21300000, guid: 9697b46bed1d45547981d94792b06bb5, type: 3}
-    foreground: {fileID: 21300000, guid: 1b717439296fe394eb385160849c6af4, type: 3}
+    spriteProgressBarBg: {fileID: 21300000, guid: d7b8cbac2508ebb44836f5609fac8a09,
+      type: 3}
+    background: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
+    foreground: {fileID: 21300000, guid: 0f0f7b223da600f47bdd66a3a987f765, type: 3}
     icon: {fileID: 21300000, guid: 8a82272b5d8be2c4a8e4e16367f1f480, type: 3}
-    name: SlotBalls
+    name: BubbleJump
     usingCooldownInSec: 1
     maxTimeInSec: 100
     numberOfSegments: 5
   - power: 1
-    spriteProgressBar: {fileID: 21300000, guid: bcb1eeaaef4fe4d45a394c77a5ce0c9b,
+    spriteProgressBarFG: {fileID: 21300000, guid: 4492952cfe55ece4cbc9a525a6f41e76,
       type: 3}
-    background: {fileID: 21300000, guid: 9697b46bed1d45547981d94792b06bb5, type: 3}
-    foreground: {fileID: 21300000, guid: 1b717439296fe394eb385160849c6af4, type: 3}
+    spriteProgressBarBg: {fileID: 21300000, guid: d7b8cbac2508ebb44836f5609fac8a09,
+      type: 3}
+    background: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
+    foreground: {fileID: 21300000, guid: 0f0f7b223da600f47bdd66a3a987f765, type: 3}
     icon: {fileID: 21300000, guid: 989bfa5ed3f994a45a1494e79346902d, type: 3}
-    name: SlotFireBalls
+    name: SugarBrick
     usingCooldownInSec: 1
     maxTimeInSec: 100
     numberOfSegments: 5
   - power: 0
-    spriteProgressBar: {fileID: 21300000, guid: 668ea0c1e5f85664c9e076e8b0100b3b,
+    spriteProgressBarFG: {fileID: 21300000, guid: 4492952cfe55ece4cbc9a525a6f41e76,
       type: 3}
-    background: {fileID: 0}
-    foreground: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504, type: 3}
-    icon: {fileID: 21300000, guid: 9bb1c3cf8701e4a48b2e0667d1739321, type: 3}
-    name: SlotFireBalls
+    spriteProgressBarBg: {fileID: 21300000, guid: d7b8cbac2508ebb44836f5609fac8a09,
+      type: 3}
+    background: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
+    foreground: {fileID: 21300000, guid: 0f0f7b223da600f47bdd66a3a987f765, type: 3}
+    icon: {fileID: 0}
+    name: Empty
     usingCooldownInSec: 0
     maxTimeInSec: 0
     numberOfSegments: 0
