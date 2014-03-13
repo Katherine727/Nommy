@@ -55,7 +55,9 @@ public class MovingPlatform : MonoBehaviour, Assets.Utils.ISwitchable {
 
     void Assets.Utils.ISwitchable.SwitchOn() {
         IsSwitched = true;
-        WhereIsHeading = WhereIsHeadingEnum.NOWHERE;
+        if (isOneWayTickiet && (transform.position == origin.position ||transform.position == destination.position)) {
+            WhereIsHeading = WhereIsHeadingEnum.NOWHERE; 
+        }
     }
 
     void Assets.Utils.ISwitchable.SwitchOff() {

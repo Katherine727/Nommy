@@ -38,8 +38,6 @@ public class ProgressBar : MonoBehaviour {
             return _spriteRendererFG;
         }
     }
-    //[HideInInspector]
-    //public Rect rectangle;
 
     public float ActualValue {
         get {
@@ -91,20 +89,6 @@ public class ProgressBar : MonoBehaviour {
         _fgObj.transform.Rotate(Vector3.forward, RotationValue());
         SpriteRendererFG.material.SetFloat("_Progress", Mathf.InverseLerp(0, maxValue, ActualValue));
     }
-    //void OnGUI() {
-    //    rectangle = new Rect(Camera.main.WorldToScreenPoint(new Vector3(_bgObj.transform.position.x - spriteProgressBarFG.width * 0.5f,_bgObj.transform.position.y,_bgObj.transform.position.z)).x,
-    //                         Camera.main.WorldToScreenPoint(new Vector3( _bgObj.transform.position.x, _bgObj.transform.position.y - spriteProgressBarFG.height * 0.5f, _bgObj.transform.position.z)).y,
-    //                         spriteProgressBarFG.width, spriteProgressBarFG.height);
-        
-    //    Rect rectFG = new Rect(rectangle.x, rectangle.y, rectangle.width * ActualValueInProc * 0.01f, rectangle.height);
-    //    Rect rectBG = new Rect(rectFG.xMax, rectangle.y, rectangle.width * (1 - ActualValueInProc * 0.01f), rectangle.height);
-    //    Vector2 pivot = new Vector2(rectFG.xMin + rectFG.width * 0.5f, rectFG.yMin + rectFG.height * 0.5f);
-    //    Matrix4x4 matrixBackUp = GUI.matrix;
-    //    GUIUtility.RotateAroundPivot(RotationValue(), pivot);
-    //    GUI.DrawTexture(rectFG, spriteProgressBarFG, ScaleMode.ScaleAndCrop);
-    //    GUI.matrix = matrixBackUp;
-
-    //}
     public void UseBar(float deltaValue) {
         ActualValue -= deltaValue;
     }
