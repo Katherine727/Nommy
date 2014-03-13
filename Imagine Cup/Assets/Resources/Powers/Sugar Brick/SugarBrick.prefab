@@ -70,7 +70,7 @@ MonoBehaviour:
   startingRelativePosition: {x: 1, y: 0, z: 0}
   sugarBrickParticlePrefab: {fileID: 100000, guid: 51dfff63992718f44aa9db37eba241cd,
     type: 2}
-  _velocity: {x: .200000003, y: 0}
+  _velocity: {x: .150000006, y: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
