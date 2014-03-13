@@ -8,7 +8,9 @@ public class Switcher : MonoBehaviour, ISwitchable {
     private bool _isCollisionWithTrigger;
     private bool _isSwitched;
     private bool _wasUsed;
+	private AudioSource asrc;
     private SpriteRenderer _spriteRenderer;
+
     private SpriteRenderer _SpriteRenderer {
         get {
             if (_spriteRenderer == null) {
@@ -17,6 +19,7 @@ public class Switcher : MonoBehaviour, ISwitchable {
             return _spriteRenderer;
         }
     }
+
     private bool IsSwitched {
         get {
             return _isSwitched;
@@ -45,6 +48,7 @@ public class Switcher : MonoBehaviour, ISwitchable {
             }
         }
     }
+
     private bool IsCollisionWithTrigger {//w razie co mozna dodac jakas logike
         get {
             return _isCollisionWithTrigger;
@@ -58,17 +62,30 @@ public class Switcher : MonoBehaviour, ISwitchable {
     public Sprite spriteOff;
     public bool isSwitchedOnStart;
     public bool isOneWay;
+	public AudioClip SwitchOnSound;
+	public AudioClip SwitchOffSound;
     public List<Transform> switchableElements;
 
     void Start() {
         IsSwitched = isSwitchedOnStart;
         _wasUsed = false;
     }
+
+	void Awake() {
+		if(SwitchOffSound!=null || SwitchOnSound!= null) {
+			asrc = this.gameObject.GetComponent<AudioSource>();
+		}
+	}
+
     void Update() {
         if (IsCollisionWithTrigger) {
             if (Input.GetKeyDown(KeyCode.F) && ((isOneWay && !_wasUsed) || !isOneWay)) {
                 IsSwitched = !IsSwitched;
                 _wasUsed = true;
+				if(asrc!=null) {
+					asrc.clip = IsSwitched ? SwitchOnSound : SwitchOffSound;
+					asrc.Play();
+				}
             }
         }
 
