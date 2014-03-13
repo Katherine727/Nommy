@@ -3,12 +3,20 @@ using System.Collections;
 
 public class MovingPlatform : MonoBehaviour, Assets.Utils.ISwitchable {
 
+    public enum WhereIsHeadingEnum {
+        NOWHERE,
+        Origin,
+        Destintaion
+    }
+
     private bool _isSwitched;
-    private bool _isTowards;
 
     public Transform origin;
     public Transform destination;
     public float speed;
+    public bool isOneWayTickiet;
+
+    public WhereIsHeadingEnum WhereIsHeading { get; private set; }
 
     public bool IsSwitched {//tutaj tez w razie co mozna dodac dodatkowa logike
         get {
@@ -20,17 +28,24 @@ public class MovingPlatform : MonoBehaviour, Assets.Utils.ISwitchable {
     }
 	void Start () {
         transform.position = origin.position;
+        WhereIsHeading = WhereIsHeadingEnum.NOWHERE;
 	}
 	
 	void Update () {
         if (IsSwitched) {
+            if (isOneWayTickiet && ((transform.position == origin.position && WhereIsHeading == WhereIsHeadingEnum.Origin)
+                                 || (transform.position == destination.position && WhereIsHeading == WhereIsHeadingEnum.Destintaion)) ) {
+                IsSwitched = false;
+                return;
+            }
             if (transform.position == origin.position) {
-                _isTowards = true;
+                WhereIsHeading = WhereIsHeadingEnum.Destintaion;
             } else if (transform.position == destination.position) {
-                _isTowards = false;
+                WhereIsHeading = WhereIsHeadingEnum.Origin;
             }
 
-            if (_isTowards) {
+
+            if (WhereIsHeading == WhereIsHeadingEnum.Destintaion) {
                 transform.position = Vector3.MoveTowards(transform.position, destination.position, speed);
             } else {
                 transform.position = Vector3.MoveTowards(transform.position, origin.position, speed);
@@ -40,6 +55,7 @@ public class MovingPlatform : MonoBehaviour, Assets.Utils.ISwitchable {
 
     void Assets.Utils.ISwitchable.SwitchOn() {
         IsSwitched = true;
+        WhereIsHeading = WhereIsHeadingEnum.NOWHERE;
     }
 
     void Assets.Utils.ISwitchable.SwitchOff() {

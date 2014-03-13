@@ -7,7 +7,6 @@ public class SugarBrickBehaviour : MonoBehaviour {
     private bool _isUsing;
     private float _timerCounter;
     private SpriteRenderer _spriteRenderer;
-    private CollisionChecker _collider;
     private PlayerInputHandler _playerInputHandler;
 
     private ParticleSystem _sbPS;
@@ -42,7 +41,6 @@ public class SugarBrickBehaviour : MonoBehaviour {
 
         _sbPS.Stop();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _collider = GetComponent<CollisionChecker>();
     }
 
     void Start() {
@@ -55,13 +53,13 @@ public class SugarBrickBehaviour : MonoBehaviour {
         }
     }
 
-    void Update() {
+    void FixedUpdate() {
         if (_isUsing) {
 
             if (_timerCounter <= _sbPS.duration && _sbPS.isPlaying) {
                 _timerCounter = Mathf.Clamp(_timerCounter, 0.0f, _sbPS.duration);
                 Sprite_Renderer.material.color = new Color(1, 1, 1, 1 - Mathf.InverseLerp(0, _sbPS.duration, _timerCounter));
-                _timerCounter += Time.deltaTime;
+                _timerCounter += Time.fixedDeltaTime;
             }
 
             if (_timerCounter >= _sbPS.duration) {
@@ -71,7 +69,7 @@ public class SugarBrickBehaviour : MonoBehaviour {
                 Destroy(_sbPS.gameObject); //usuniecie particli
                 Destroy(this.gameObject);
             }
-            collider2D.rigidbody2D.velocity = Velocity / Time.deltaTime;
+            collider2D.rigidbody2D.velocity = Velocity / Time.fixedDeltaTime;
         }
 
     }
