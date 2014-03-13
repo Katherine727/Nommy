@@ -85,8 +85,10 @@ public class ProgressBar : MonoBehaviour {
 	}
 
     void Update() {
-        
-        
+        _bgObj.transform.rotation = Quaternion.identity;
+        _fgObj.transform.rotation = Quaternion.identity;
+        _bgObj.transform.Rotate(Vector3.forward, RotationValue());
+        _fgObj.transform.Rotate(Vector3.forward, RotationValue());
         SpriteRendererFG.material.SetFloat("_Progress", Mathf.InverseLerp(0, maxValue, ActualValue));
     }
     //void OnGUI() {
@@ -121,11 +123,11 @@ public class ProgressBar : MonoBehaviour {
             case BarType.HorizontalFromLeftToRight:
                 return 0;
             case BarType.HorizontalFromRightToLeft:
-                return Mathf.PI;
+                return 180;
             case BarType.VerticalFromUpToDown:
-                return Mathf.PI * 0.5f;
+                return 90;
             case BarType.VerticalFromDownToUp:
-                return (4.0f * Mathf.PI) / 3.0f;
+                return 270;
             default:
                 return 0;
         }

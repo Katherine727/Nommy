@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opacityDeactivatedSlot: .600000024
-  offsetProgressBar: {x: 0, y: 0, z: 0}
+  offsetProgressBar: {x: 0, y: -.639999986, z: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,9 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxValue: 100
-  barType: 0
+  barType: 3
   spriteProgressBarFG: {fileID: 0}
-  spriteProgressBarBg: {fileID: 0}
+  spriteProgressBarBG: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
