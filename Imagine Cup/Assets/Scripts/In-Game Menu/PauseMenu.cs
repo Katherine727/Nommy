@@ -95,6 +95,7 @@ public class PauseMenu : MonoBehaviour
 		}
 		if (GUILayout.Button ("Exit to main menu")) {
 			Application.LoadLevel("Menu_MAIN");
+			UnPauseGame();
 		}
 		if (!IsBrowser() && GUILayout.Button ("Exit game")) {
 			Application.Quit();
