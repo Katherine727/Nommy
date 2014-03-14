@@ -235,9 +235,9 @@ MonoBehaviour:
     foreground: {fileID: 21300000, guid: 18da21d7f1987994da8cc2d871817aab, type: 3}
     icon: {fileID: 21300000, guid: c53299c4839c5194ea18a554d3bfca36, type: 3}
     name: CandySpitter
-    usingCooldownInSec: 0
-    maxTimeInSec: 0
-    numberOfSegments: 0
+    usingCooldownInSec: 1
+    maxTimeInSec: 100
+    numberOfSegments: 5
   - power: 0
     spriteProgressBarFG: {fileID: 21300000, guid: 4492952cfe55ece4cbc9a525a6f41e76,
       type: 3}

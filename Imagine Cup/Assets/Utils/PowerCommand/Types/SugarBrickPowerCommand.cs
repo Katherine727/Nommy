@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Assets.Utils;
 
 public class SugarBrickPowerCommand :  ICommand {
@@ -19,7 +18,6 @@ public class SugarBrickPowerCommand :  ICommand {
 
     public void Execute() {
 		var obj = (GameObject)GameObject.Instantiate(Resources.Load("Powers/Sugar Brick/SugarBrick"), PIH.gameObject.transform.position + new Vector3( 1.2f * (PIH.GoingLeft ? -1 : 1), 0, 0), Quaternion.identity);
-       	//obj.transform.position = CC2D.transform.position;
         obj.GetComponent<SugarBrickBehaviour>().Use(CC2D.GetComponent<PlayerInputHandler>());
 
     }

@@ -33,6 +33,8 @@ namespace Assets.Utils.PowerCommand
 						return new BubbleJumpPowerCommand(_PowerUser);
                     case PowerEnum.SugarBrick:
                         return new SugarBrickPowerCommand(_PowerUser);
+                    case PowerEnum.CandySpitter:
+                        return new CandySpittingPowerCommand(_PowerUser);
                     default:
                         return new BubbleJumpPowerCommand(_PowerUser);
 					//TODO

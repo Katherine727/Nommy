@@ -45,7 +45,7 @@ MonoBehaviour:
       type: 3}
     spriteProgressBarBg: {fileID: 21300000, guid: d7b8cbac2508ebb44836f5609fac8a09,
       type: 3}
-    background: {fileID: 21300000, guid: c868a4891b4ce0146938bea9a8f0a835, type: 3}
+    background: {fileID: 21300000, guid: 8fb5994288dd0d04597cf5570e24c661, type: 3}
     foreground: {fileID: 21300000, guid: 735bee6daaa5a2240b5e7e08e6cee504, type: 3}
     icon: {fileID: 21300000, guid: 8a82272b5d8be2c4a8e4e16367f1f480, type: 3}
     name: Bubble Jump

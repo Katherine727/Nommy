@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 using Assets.Utils;
 using System.Collections.Generic;
-public class Switcher : MonoBehaviour, ISwitchable {
+
+public class Button : MonoBehaviour {
 
     private bool _isCollisionWithTrigger;
     private bool _isSwitched;
     private bool _wasUsed;
-	private AudioSource asrc;
+    private AudioSource asrc;
     private SpriteRenderer _spriteRenderer;
 
     private SpriteRenderer _SpriteRenderer {
@@ -25,15 +24,15 @@ public class Switcher : MonoBehaviour, ISwitchable {
             return _isSwitched;
         }
         set {
-            if (value) {
+            _isSwitched = value; //inaczej niz w switcherze
+            if (_isSwitched) {
                 _SpriteRenderer.sprite = spriteOn;
                 SwitchObjects();
             } else {
                 _SpriteRenderer.sprite = spriteOff;
                 SwitchObjects();
             }
-            _isSwitched = value;
-            
+
         }
     }
 
@@ -60,42 +59,36 @@ public class Switcher : MonoBehaviour, ISwitchable {
 
     public Sprite spriteOn;
     public Sprite spriteOff;
-    public bool isSwitchedOnStart;
-    public bool isOneWay;
-	public AudioClip SwitchOnSound;
-	public AudioClip SwitchOffSound;
+    public AudioClip SwitchOnSound;
+    public AudioClip SwitchOffSound;
     public List<Transform> switchableElements;
-
+    public List<string> tags;
     void Start() {
-        IsSwitched = isSwitchedOnStart;
+        IsSwitched = false;
         _wasUsed = false;
     }
 
-	void Awake() {
-		if(SwitchOffSound!=null || SwitchOnSound!= null) {
-			asrc = this.gameObject.GetComponent<AudioSource>();
-		}
-	}
+    void Awake() {
+        if (SwitchOffSound != null || SwitchOnSound != null) {
+            asrc = this.gameObject.GetComponent<AudioSource>();
+        }
+    }
 
     void Update() {
-        if (IsCollisionWithTrigger) {
-            if (Input.GetKeyDown(KeyCode.F) && ((isOneWay && !_wasUsed) || !isOneWay)) {
-                IsSwitched = !IsSwitched;
-                _wasUsed = true;
-				if(asrc!=null) {
-					asrc.clip = IsSwitched ? SwitchOnSound : SwitchOffSound;
-					asrc.Play();
-				}
+        if (IsCollisionWithTrigger && !_wasUsed) {
+            IsSwitched = !IsSwitched;
+            _wasUsed = true;
+            if (asrc != null) {
+                asrc.clip = IsSwitched ? SwitchOnSound : SwitchOffSound;
+                asrc.Play();
             }
         }
 
     }
 
-    void ISwitchable.SwitchOn() {
-        IsCollisionWithTrigger = true;
-    }
-
-    void ISwitchable.SwitchOff() {
-        IsCollisionWithTrigger = false;
+    void OnTriggerEnter2D(Collider2D c) {
+        if (tags.Count > 0 && tags.Contains(c.tag)) {
+            IsCollisionWithTrigger = true;
+        }
     }
 }
