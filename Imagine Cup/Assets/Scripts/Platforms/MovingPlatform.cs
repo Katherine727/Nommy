@@ -32,6 +32,9 @@ public class MovingPlatform : MonoBehaviour, Assets.Utils.ISwitchable {
 	}
 	
 	void Update () {
+		if(Time.deltaTime == 0.0f)
+			return;
+
         if (IsSwitched) {
             if (isOneWayTickiet && ((transform.position == origin.position && WhereIsHeading == WhereIsHeadingEnum.Origin)
                                  || (transform.position == destination.position && WhereIsHeading == WhereIsHeadingEnum.Destintaion)) ) {

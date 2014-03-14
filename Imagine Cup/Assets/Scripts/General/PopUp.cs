@@ -40,6 +40,7 @@ public class PopUp : MonoBehaviour, ISwitchable {
         _popUp.AddComponent<SpriteRenderer>();
         PopUpSpriteRenderer.sprite = sprite;
         PopUpSpriteRenderer.material = material;
+		PopUpSpriteRenderer.sortingOrder = transform.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
         _popUp.transform.localPosition = new Vector3(positionX, positionY, transform.position.z);
 
         _applyEffect = false;
