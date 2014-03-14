@@ -18,12 +18,14 @@ public class ImageButton : MonoBehaviour {
 	private float delay=0.8f;
 	private float currentDelay=0;
 	private bool launchingLevel = false;
+    private bool _wasClicked;
 
 	// Use this for initialization
 	void Start () {
 		sr = this.GetComponent<SpriteRenderer>();
 		asrc = this.GetComponent<AudioSource>();
 		defaultSprite = sr.sprite;
+        _wasClicked = false;
 	}
 
 	void OnMouseEnter()
@@ -33,12 +35,15 @@ public class ImageButton : MonoBehaviour {
 
 	void OnMouseExit()
 	{
-		sr.sprite = defaultSprite;
+        if (!_wasClicked) {
+            sr.sprite = defaultSprite; 
+        }
 	}
 
 	void OnMouseOver()
 	{
 		if(Input.GetMouseButtonDown(0)){
+            _wasClicked = true;
 			sr.sprite = OnClickSprite;
 			asrc.Play();
 
