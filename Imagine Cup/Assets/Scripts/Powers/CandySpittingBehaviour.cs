@@ -14,9 +14,6 @@ public class CandySpittingBehaviour : MonoBehaviour {
     public GameObject candyParticlePrefab;
     private SpriteRenderer Sprite_Renderer {
         get {
-            if (_spriteRenderer == null) {
-                _spriteRenderer = GetComponent<SpriteRenderer>();
-            }
             return _spriteRenderer;
         }
     }
@@ -35,7 +32,7 @@ public class CandySpittingBehaviour : MonoBehaviour {
     }
 
     void Awake() {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _spPS = ((GameObject)Instantiate(candyParticlePrefab)).GetComponent<ParticleSystem>();
         _spPS.transform.parent = transform;
         _spPS.transform.localPosition = new Vector3(0.15f, 0, transform.position.z + 0.1f);
