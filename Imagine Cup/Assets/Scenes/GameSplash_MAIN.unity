@@ -357,7 +357,7 @@ ParticleSystem:
     radius: 1
     angle: 25
     length: 5
-    boxX: .852858722
+    boxX: .619549334
     boxY: 1
     boxZ: .0760624036
     placementMode: 0
@@ -616,7 +616,7 @@ ParticleSystem:
     cycles: 1
     randomRow: 1
   VelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       scalar: .100000001
       maxCurve:
