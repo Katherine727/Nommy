@@ -28,6 +28,7 @@ public class FoodSpawner : MonoBehaviour {
 
 	void SpawnObject() {
 		spawnedObject = Instantiate(foodPrefab,this.transform.position,Quaternion.identity);
+		(spawnedObject as GameObject).transform.parent = this.gameObject.transform;
 		timeCounter = TimeDelay;
 
 		AfterSpawn();
