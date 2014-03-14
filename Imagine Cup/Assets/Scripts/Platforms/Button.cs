@@ -2,7 +2,8 @@
 using Assets.Utils;
 using System.Collections.Generic;
 
-public class Button : MonoBehaviour {
+[RequireComponent(typeof(AbilityToStartScriptByTag))]
+public class Button : MonoBehaviour, ISwitchable {
 
     private bool _isCollisionWithTrigger;
     private bool _isSwitched;
@@ -62,7 +63,7 @@ public class Button : MonoBehaviour {
     public AudioClip SwitchOnSound;
     public AudioClip SwitchOffSound;
     public List<Transform> switchableElements;
-    public List<string> tags;
+
     void Start() {
         IsSwitched = false;
         _wasUsed = false;
@@ -87,8 +88,14 @@ public class Button : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D c) {
-        if (tags.Count > 0 && tags.Contains(c.tag)) {
-            IsCollisionWithTrigger = true;
-        }
+
+    }
+
+    void ISwitchable.SwitchOn() {
+        IsCollisionWithTrigger = true;
+    }
+
+    void ISwitchable.SwitchOff() {
+        throw new System.NotImplementedException();
     }
 }

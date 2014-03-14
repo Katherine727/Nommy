@@ -57,7 +57,7 @@ public class SugarBrickBehaviour : MonoBehaviour {
             if (_timerCounter <= _sbPS.duration && _sbPS.isPlaying) {
                 _timerCounter = Mathf.Clamp(_timerCounter, 0.0f, _sbPS.duration);
                 Sprite_Renderer.material.color = new Color(1, 1, 1, 1 - Mathf.InverseLerp(0, _sbPS.duration, _timerCounter));
-                _timerCounter += Time.fixedDeltaTime;
+                _timerCounter += Time.deltaTime;
             }
 
             if (_timerCounter >= _sbPS.duration) {

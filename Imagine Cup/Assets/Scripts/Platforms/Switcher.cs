@@ -25,14 +25,14 @@ public class Switcher : MonoBehaviour, ISwitchable {
             return _isSwitched;
         }
         set {
-            if (value) {
+            _isSwitched = value;
+            if (_isSwitched) {
                 _SpriteRenderer.sprite = spriteOn;
                 SwitchObjects();
             } else {
                 _SpriteRenderer.sprite = spriteOff;
                 SwitchObjects();
             }
-            _isSwitched = value;
             
         }
     }
@@ -88,7 +88,6 @@ public class Switcher : MonoBehaviour, ISwitchable {
 				}
             }
         }
-
     }
 
     void ISwitchable.SwitchOn() {
