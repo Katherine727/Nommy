@@ -35,9 +35,9 @@ public class ImageButton : MonoBehaviour {
 
 	void OnMouseExit()
 	{
-        if (!_wasClicked) {
-            sr.sprite = defaultSprite; 
-        }
+        
+        sr.sprite = defaultSprite; 
+        
 	}
 
 	void OnMouseOver()
@@ -69,6 +69,9 @@ public class ImageButton : MonoBehaviour {
 	}
 
 	void Update() {
+        if (_wasClicked) {
+            sr.sprite = OnClickSprite;
+        }
 		if(launchingLevel) {
 			currentDelay += Time.deltaTime;
 			if(currentDelay >= delay) {
