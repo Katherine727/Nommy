@@ -43,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.4627686, y: -7.31154156, z: 0}
+  m_LocalPosition: {x: -3.03707552, y: -2.03926635, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9351d7eb115f180429e7bd3fc51d2597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  candyParticlePrefab: {fileID: 100000, guid: 4a1acd84949d04a4fb6d19c200769207, type: 2}
   _velocity: {x: 1.5, y: 0}
   tags:
   - Button
