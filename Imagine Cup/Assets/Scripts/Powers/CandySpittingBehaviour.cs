@@ -65,7 +65,12 @@ public class CandySpittingBehaviour : MonoBehaviour {
             Velocity = Vector2.zero;
             _CC2D.velocity = Velocity;
             collider2D.rigidbody2D.gravityScale = 0;
-            //particle madafaka
+            
+        }
+        Destroy(this.gameObject);
+    }
+    void OnCollisionEnter2D(Collision2D c) {
+        if (tags.Count > 0 && !tags.Contains(c.gameObject.tag)) {
             Destroy(this.gameObject);
         }
     }
