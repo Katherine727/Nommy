@@ -46,18 +46,18 @@ public class SugarBrickBehaviour : MonoBehaviour {
     void Start() {
         if (_playerInputHandler != null) {
             if (_playerInputHandler.GoingLeft) {
-                Velocity = new Vector2(Velocity.x * (-500), Velocity.y);
+                Velocity = new Vector2(Velocity.x * (-1), Velocity.y);
             }
         }
     }
 
-    void Update() {
+    void FixedUpdate() {
         if (_isUsing) {
 
             if (_timerCounter <= _sbPS.duration && _sbPS.isPlaying) {
                 _timerCounter = Mathf.Clamp(_timerCounter, 0.0f, _sbPS.duration);
                 Sprite_Renderer.material.color = new Color(1, 1, 1, 1 - Mathf.InverseLerp(0, _sbPS.duration, _timerCounter));
-                _timerCounter += Time.deltaTime;
+                _timerCounter += Time.fixedDeltaTime;
             }
 
             if (_timerCounter >= _sbPS.duration) {
@@ -69,7 +69,7 @@ public class SugarBrickBehaviour : MonoBehaviour {
 			}
             //collider2D.rigidbody2D.velocity = Velocity / Time.fixedDeltaTime;
 
-			_CC2D.move(new Vector3(-Velocity.x*Time.deltaTime*5, Velocity.y, 0));
+			_CC2D.move(new Vector3(-Velocity.x*Time.fixedDeltaTime*5, Velocity.y, 0));
         }
 
     }

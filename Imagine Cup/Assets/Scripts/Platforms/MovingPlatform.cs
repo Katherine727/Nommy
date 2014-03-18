@@ -31,7 +31,7 @@ public class MovingPlatform : MonoBehaviour, Assets.Utils.ISwitchable {
         WhereIsHeading = WhereIsHeadingEnum.NOWHERE;
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		if(Time.deltaTime == 0.0f)
 			return;
 

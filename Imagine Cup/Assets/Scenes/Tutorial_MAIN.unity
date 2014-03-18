@@ -1126,8 +1126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteOn: {fileID: 21300000, guid: 9445d47bffe8aac448d2efbca54f14db, type: 3}
   spriteOff: {fileID: 21300000, guid: bd51de05b3ff6cf47be35327335f2757, type: 3}
-  SwitchOnSound: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
-  SwitchOffSound: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+  SwitchOnSound: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+  SwitchOffSound: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
   switchableElements:
   - {fileID: 1338747720}
 --- !u!82 &188773648
@@ -4374,7 +4374,7 @@ Transform:
   m_PrefabInternal: {fileID: 1418243848}
   m_GameObject: {fileID: 1072803975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.0527039, y: -9.74061108, z: 0}
+  m_LocalPosition: {x: -47.9647713, y: -9.79269886, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1360093089}
@@ -4841,6 +4841,14 @@ Prefab:
       propertyPath: switchableElements.Array.data[0]
       value: 
       objectReference: {fileID: 2059510722}
+    - target: {fileID: 11400002, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
+      propertyPath: SwitchOnSound
+      value: 
+      objectReference: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+    - target: {fileID: 11400002, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
+      propertyPath: SwitchOffSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab10f9f5b8a213a49a30025a922fec4a, type: 2}
   m_RootGameObject: {fileID: 1942724186}
@@ -6703,8 +6711,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1375165734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.3973999, y: .700101852, z: .00415039062}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -42.8258553, y: -.769235611, z: .00415039062}
+  m_LocalScale: {x: 1.1572324, y: 1.15723276, z: 1}
   m_Children: []
   m_Father: {fileID: 792031837}
 --- !u!1 &1381360314
@@ -7087,11 +7095,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: d7cccbb9812dfd943b2f28415ec440ad, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -48.0527039
+      value: -47.9647713
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: d7cccbb9812dfd943b2f28415ec440ad, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -9.74061108
+      value: -9.79269886
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: d7cccbb9812dfd943b2f28415ec440ad, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8807,8 +8815,8 @@ MonoBehaviour:
   spriteOff: {fileID: 21300000, guid: bd51de05b3ff6cf47be35327335f2757, type: 3}
   isSwitchedOnStart: 0
   isOneWay: 0
-  SwitchOnSound: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
-  SwitchOffSound: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+  SwitchOnSound: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+  SwitchOffSound: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
   switchableElements:
   - {fileID: 2059510722}
 --- !u!4 &1942724191
@@ -9497,6 +9505,14 @@ Prefab:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c110c03beeac8aa45a9c3ba963f1aaa8, type: 2}
+      propertyPath: SwitchOnSound
+      value: 
+      objectReference: {fileID: 8300000, guid: dc72f9699eab1fb4092e06874d196fb4, type: 3}
+    - target: {fileID: 11400000, guid: c110c03beeac8aa45a9c3ba963f1aaa8, type: 2}
+      propertyPath: SwitchOffSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 794254fc98a4e1c46839d6fccf4a4b00, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c110c03beeac8aa45a9c3ba963f1aaa8, type: 2}
   m_RootGameObject: {fileID: 188773645}
