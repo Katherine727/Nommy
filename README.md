@@ -1,29 +1,14 @@
-# README #
+# Nommy
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Someday, long ago this thing was created to be the best game that ever was.
+It wasn't.
+It was supposed to win the Imagine Cup competition.
+It didn't.
+It was supposed to be fun.
+To be honest, it pretty much wasn't.
 
-### What is this repository for? ###
+Oh and the code is a one big blob of spaghetti and a result of shitty teamwork, working overnight, huge amounts of stress and me trying to be the team leader/graphic designer/game designer/developer at once because the **supposed** 5-man team was actually quite a bit smaller.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Huge thanks to the other coder who managed to be a part of the team. Yay.
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Good times. Good times...
