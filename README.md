@@ -1,29 +1,16 @@
-# README #
+# Nommy
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Someday, long ago this thing was created to be the best game that ever was.  
+It wasn't.
 
-### What is this repository for? ###
+It was supposed to win the Imagine Cup competition.  
+It didn't.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+It was supposed to be fun.  
+To be honest, it pretty much wasn't.
 
-### How do I get set up? ###
+Oh and the code is a one big blob of spaghetti and a result of shitty teamwork, working overnight, huge amounts of stress and me trying to be the team leader/graphic designer/game designer/developer at once because the *supposed* 5-man team was actually quite a bit smaller.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+But hey we had some fun, we tried. I learned very well how much of a bullshit teamwork can be when some people just ain't feeling it. And that forcing them through ain't going to work. Even with given tasks, guides, help materials, meetings and so on. It was also our very first try at something bigger than a snake game and with Unity as an engine :dog:. 
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Still, it was worth it to aim for the skies and try :smiley:. Also, my nostalgia and love-hate relationship with this project forces me to share it. Here you go.
